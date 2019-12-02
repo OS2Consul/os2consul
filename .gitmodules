@@ -1,3 +1,0 @@
-[submodule "consul"]
-	path = consul
-	url = https://github.com/consul/consul.git
