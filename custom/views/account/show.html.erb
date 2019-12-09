@@ -1,0 +1,67 @@
+<div class="row account">
+  <div class="small-12 column">
+    <% if current_user.administrator? %>
+      <div class="float-right text-right">
+        <%= link_to t("account.show.change_credentials_link"), edit_user_registration_path, class: "button hollow" %>
+      </div>
+    <% end %>
+
+    <%= avatar_image(@account, seed: @account.id, size: 100, class: "margin-bottom") %>
+
+    <h1 class="inline-block"><%= t("account.show.title") %></h1>
+
+    <%= form_for @account, as: :account, url: account_path do |f| %>
+      <%= render "shared/errors", resource: @account %>
+
+      <div class="row">
+        <div class="small-12 medium-7 column">
+
+          <h2><%= t("account.show.personal") %></h2>
+
+          <div class="small-12 medium-10">
+            <% if @account.organization? %>
+              <%= f.fields_for :organization do |fo| %>
+                <%= fo.text_field :name, autofocus: true, maxlength: Organization.name_max_length, placeholder: t("account.show.organization_name_label") %>
+                <%= fo.text_field :responsible_name, autofocus: true, maxlength: Organization.responsible_name_max_length, placeholder: t("account.show.organization_responsible_name_placeholder") %>
+              <% end %>
+              <%= f.text_field :phone_number, placeholder: t("account.show.phone_number_label") %>
+            <% end %>
+          </div>
+
+          <div>
+            <%= f.check_box :public_activity %>
+          </div>
+
+          <div>
+            <%= f.check_box :public_interests %>
+          </div>
+
+          <% if @account.official_level == 1 %>
+            <div>
+              <%= f.check_box :official_position_badge %>
+            </div>
+          <% end %>
+
+          <% if feature?("user.recommendations") %>
+            <h2><%= t("account.show.recommendations") %></h2>
+
+            <% if feature?("user.recommendations_on_debates") %>
+              <div>
+                <%= f.check_box :recommended_debates %>
+              </div>
+            <% end %>
+
+            <% if feature?("user.recommendations_on_proposals") %>
+              <div>
+                <%= f.check_box :recommended_proposals %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <%= f.submit t("account.show.save_changes_submit"), class: "button margin-top" %>
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+</div>
