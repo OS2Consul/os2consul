@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-def clean_consul
+def clean
   Dir.chdir(__dir__) do
     system 'git submodule update --init'
   end
@@ -10,4 +10,4 @@ def clean_consul
   end
 end
 
-clean_consul if $PROGRAM_NAME == __FILE__
+clean if $PROGRAM_NAME == __FILE__
