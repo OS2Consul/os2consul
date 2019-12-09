@@ -30,9 +30,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def nemlogin_url
-    uri = URI(ENV['NEMLOGIN_LOGIN_URI'])
+    uri = URI(Rails.application.secrets.nemlogin_login_uri)
     uri.query = {
-      mnemo: ENV['NEMLOGIN_MNEMO'],
+      mnemo: Rails.application.secrets.nemlogin_mnemo,
       forward: users_sign_up_success_url
     }.to_query
     uri.to_s
