@@ -93,7 +93,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def get_pid_and_name(token, mnemo)
     # Obtains the user PID and name from nemlogin through a SOAP API
-    client = Savon.client(wsdl: ENV['NEMLOGIN_WSDL_URI'])
+    client = Savon.client(wsdl: Rails.application.secrets.nemlogin_wsdl_uri)
     response = client.call(:log_in, message: { token: token, mnemo: mnemo }).to_hash
 
     status = response.dig(:log_in_response, :log_in_result, :ok)
@@ -122,7 +122,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def nemlogin_destroy_session_url(callback)
-    uri = URI(ENV['NEMLOGIN_LOGOUT_URI'])
+    uri = URI(Rails.application.secrets.nemlogin_logout_uri)
     uri.query = { RelayState: callback }.to_query
     uri.to_s
   end
