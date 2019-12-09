@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'yaml'
 require 'fileutils'
-require './install_custom'
+require './customize'
 
 CONFIG_FILE = File.join(__dir__, 'config.deploy.yml')
 DEPLOY_SECRETS_FILE = File.join(__dir__, 'consul', 'config', 'deploy-secrets.yml')
@@ -29,7 +29,7 @@ def augment_deploy_secrets(config)
 end
 
 def deploy
-  install_custom
+  customize
   augment_deploy_secrets(read_config)
 
   system 'gem install --conservative whenever -v "~> 0.10.0"'

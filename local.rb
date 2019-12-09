@@ -2,7 +2,7 @@
 require 'yaml'
 require 'fileutils'
 require 'securerandom'
-require './install_custom'
+require './customize'
 
 CONFIG_FILE = File.join(__dir__, 'config.local.yml')
 CONFIG_KEYS = %w[NEMLOGIN_WSDL_URI NEMLOGIN_LOGIN_URI NEMLOGIN_LOGOUT_URI NEMLOGIN_MNEMO].freeze
@@ -41,8 +41,8 @@ def augment_docker_compose_file(config)
   File.open(DOCKER_COMPOSE_FILE, 'w') { |file| file.write(compose_config.to_yaml) }
 end
 
-def start_local
-  install_custom
+def local
+  customize
   config = read_config
   augment_docker_compose_file(config)
 
@@ -62,4 +62,4 @@ def start_local
   end
 end
 
-start_local if $PROGRAM_NAME == __FILE__
+local if $PROGRAM_NAME == __FILE__

@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
-require './clean_consul'
+require './clean'
 
-def update_consul
-  clean_consul
+def update
+  clean
 
   Dir.chdir(File.join(__dir__, 'consul')) do
     system 'git checkout master'
@@ -10,4 +10,4 @@ def update_consul
   end
 end
 
-update_consul if $PROGRAM_NAME == __FILE__
+update if $PROGRAM_NAME == __FILE__

@@ -22,7 +22,7 @@ The production deployment target is a single `Debian Stretch` host, bootstrapped
 
 # Workflow scripts
 
-## start_local.rb
+## local.rb
 
 Invokes the local development server through Docker Compose. Before invocation, the
 customizations are installed and the database is configured. This is the starting point
@@ -35,7 +35,7 @@ necessary for NemLog-in to function.
 
 Runs a production deployment based on the current contents of the working directory.
 
-## update_consul.rb
+## update.rb
 
 Run this script to update the CONSUL submodule to the latest commit from the upstream
 `master` branch.
