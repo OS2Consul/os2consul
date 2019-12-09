@@ -42,6 +42,7 @@ def deploy
   system 'gem install --conservative rvm1-capistrano3 -v "~> 1.4.0"'
 
   FileUtils.rm_f(File.join(__dir__, 'consul', 'dist.tar.bz2'))
+  FileUtils.mkdir_p(File.join(__dir__, 'consul', 'tmp'))
 
   Dir.chdir(File.join(__dir__, 'consul')) do
     system 'echo `git rev-parse HEAD` > REVISION'
