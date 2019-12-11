@@ -114,7 +114,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user = User.create!(
         username: pid,
         fullname: name,
-        email: "#{pid}@nemlogin"
+        email: "#{pid}@nemlogin",
+        confirmed_at: Time.current,
+        newsletter: false,
+        email_on_proposal_notification: false,
+        email_digest: false,
+        email_on_direct_message: false,
+        email_on_comment: false,
+        email_on_comment_reply: false,
+        terms_of_service: '1',
+        residence_verified_at: Time.current,
+        verified_at: Time.current
       )
     end
 

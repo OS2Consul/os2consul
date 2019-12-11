@@ -1,0 +1,19 @@
+<h2><%= t("management.users.create_user_info") %></h2>
+
+<div class="small-12 medium-12 column">
+
+  <div class="verification account">
+    <%= form_for @user, url: management_users_path do |f| %>
+      <%= hidden_field_tag :alternative, true %>
+      <%= f.text_field :username,
+          label: t("management.username_label"),
+          placeholder: t("management.username_label") %>
+      <%= f.text_field :email,
+          label: t("management.users.email_optional_label"),
+          placeholder: t("management.email_label") %>
+      <%= f.password_field :password, label: t("management.account.edit.password.password"), value: nil, autocomplete: "off" %>
+      <%= f.check_box :create_as_administrator, label: t("comments.comment.admin") %>
+      <%= f.submit t("management.users.create_user_submit"), class: "button success" %>
+    <% end %>
+  </div>
+</div>
