@@ -12,7 +12,6 @@ as a git submodule and subsequently customized using the scripts in the reposito
 - Disable OAuth authentication
 - Disable user registration
 - Disable password recovery
-- Disable user account deletion
 - Add support for storing and displaying full names of users
 
 ## Deployment configuration

@@ -24,10 +24,11 @@ class Management::UsersController < Management::BaseController
     end
 
     @user.terms_of_service = '1'
+    @user.consent_and_information = '1'
     @user.residence_verified_at = Time.current
     @user.verified_at = Time.current
 
-    @user.administrator = Administrator.new if @user.create_as_administrator == "1"
+    @user.administrator = Administrator.new if @user.create_as_administrator == '1'
 
     if @user.save
       render :show
