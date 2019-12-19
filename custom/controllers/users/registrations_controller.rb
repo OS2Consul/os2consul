@@ -61,7 +61,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # nemlogin for authentication
     return redirect_to authenticated_return_url if user_signed_in?
 
-    encryptor = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base)
+    encryptor = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base[0..31])
 
     if params.key?(:user)
       @user = User.new(params.require(:user).permit(:registration_state, :terms_of_service, :consent_and_information))
