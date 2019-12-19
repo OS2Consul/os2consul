@@ -8,11 +8,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     redirect_to new_user_session_path
   end
 
-  def delete
-    # Disable account removal (might result in double votes)
-    raise NotImplementedError
-  end
-
   alias original_update update
   def update
     # Disable password change for non-administrators
@@ -33,11 +28,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def do_finish_signup
     # Disable user self-registration
-    raise NotImplementedError
-  end
-
-  def delete_form
-    # Disable account removal (might result in double votes)
     raise NotImplementedError
   end
 
@@ -71,16 +61,65 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # nemlogin for authentication
     return redirect_to authenticated_return_url if user_signed_in?
 
-    token, mnemo = params.require(%i[token mnemo])
-    pid, name = get_pid_and_name(token, mnemo)
+    encryptor = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base)
 
-    if pid.blank?
-      flash[:error] = t('devise.failure.timeout')
-      return redirect_to authenticated_return_url
+    if params.key?(:user)
+      @user = User.new(params.require(:user).permit(:registration_state, :terms_of_service, :consent_and_information))
+
+      state = ActiveSupport::JSON.decode(encryptor.decrypt_and_verify(@user.registration_state)).symbolize_keys
+
+      @user.assign_attributes(
+        username: state[:pid],
+        fullname: state[:name],
+        email: "#{state[:pid]}@nemlogin",
+        confirmed_at: Time.current,
+        newsletter: false,
+        email_on_proposal_notification: false,
+        email_digest: false,
+        email_on_direct_message: false,
+        email_on_comment: false,
+        email_on_comment_reply: false,
+        residence_verified_at: Time.current,
+        verified_at: Time.current
+      )
+
+      if !params[:initial_prompt] && @user.valid?
+        @user.save
+
+        finalize_sign_in(@user)
+      end
+    else
+      token, mnemo = params.require(%i[token mnemo])
+      pid, name = get_pid_and_name(token, mnemo)
+
+      if pid.blank?
+        flash[:error] = t('devise.failure.timeout')
+        return redirect_to authenticated_return_url
+      end
+
+      @user = User.find_for_authentication(username: pid)
+
+      if @user.present?
+        @user.fullname = name
+        @user.save
+
+        finalize_sign_in(@user)
+      else
+        redirect_to users_sign_up_success_path(
+          initial_prompt: true,
+          user: {
+            registration_state: encryptor.encrypt_and_sign({ pid: pid, name: name }.to_json)
+          }
+        )
+      end
     end
+  end
 
+  private
+
+  def finalize_sign_in(_user)
     # Sign the user into Consul
-    sign_in(:user, find_or_create_user(pid, name))
+    sign_in(:user, @user)
 
     # Sign out from nemlogin before proceeding, since the necessary
     # information has been collected
@@ -88,8 +127,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       URI.join(root_url, authenticated_return_url)
     ), notice: t('devise.sessions.signed_in')
   end
-
-  private
 
   def get_pid_and_name(token, mnemo)
     # Obtains the user PID and name from nemlogin through a SOAP API
@@ -102,33 +139,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     [response.dig(:log_in_response, :log_in_result, :pid),
      response.dig(:log_in_response, :log_in_result, :name)]
-  end
-
-  def find_or_create_user(pid, name)
-    user = User.find_for_authentication(username: pid)
-
-    if user.present?
-      user.fullname = name
-      user.save
-    else
-      user = User.create!(
-        username: pid,
-        fullname: name,
-        email: "#{pid}@nemlogin",
-        confirmed_at: Time.current,
-        newsletter: false,
-        email_on_proposal_notification: false,
-        email_digest: false,
-        email_on_direct_message: false,
-        email_on_comment: false,
-        email_on_comment_reply: false,
-        terms_of_service: '1',
-        residence_verified_at: Time.current,
-        verified_at: Time.current
-      )
-    end
-
-    user
   end
 
   def nemlogin_destroy_session_url(callback)
