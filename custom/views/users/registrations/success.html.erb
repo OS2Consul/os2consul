@@ -12,17 +12,15 @@
     <% end %>
   <% end %>
 
-  <p>Borgerservice i Aarhus Kommune ønsker i forbindelse med at du som borger kan deltage i prioriteringen af offentlige budgetter at indhente dit samtykke til, at vi behandler personoplysninger om dig.</p>
+  <p>Borgerservice i Aarhus Kommune ønsker i forbindelse med, at du som borger kan deltage i prioriteringen af offentlige budgetter at indhente dit samtykke til, at vi behandler personoplysninger om dig.</p>
   <%= f.label :consent_and_information do %>
     <%= strip_checkbox_errors do %>
       <%= f.check_box :consent_and_information, label: false %>
-      <span class="checkbox" style="display:block;position:relative;margin-left:2em;margin-top:-2.2em;">Ved afkrydsning af dette felt giver du samtykke til at Borgerservice i Aarhus Kommune, må behandle dine oplysninger som beskrevet. Dit brugernavn vil blive vist i forbindelse med dine indlæg.</span>
+      <span class="checkbox" style="display:block;position:relative;margin-left:2em;margin-top:-2.2em;">Ved afkrydsning af dette felt giver du samtykke til, at Borgerservice i Aarhus Kommune må behandle dine oplysninger til at bekræfte din identitet som borger i Aarhus Kommune. Dit navn vil blive vist i forbindelse din aktivitet på siden. Borgerservice vil også have mulighed for at kontakte dig gennem Digital Post. <%= link_to "Læs mere om anvendelse af personoplysninger", "/privacy", target: "_blank" %></span>
     <% end %>
   <% end %>
 
-  <p>Borgerservice benytter ikke altid dine oplysninger, men vil have mulighed for at kontakte dig pr. e-mail. <%= link_to "Læs mere om anvendelse af personoplysninger", "/privacy", target: "_blank" %></p>
-
-  <p>Det samtykke du har givet, kan til enhver tid trækkes tilbage, dog uden at ændre på lovligheden af den behandling, der allerede måtte være foretaget. Hvis du ønsker at tilbagetrække dit samtykke, kan du henvende dig mundtligt, på mail eller skriftligt til Demokrati og Udvikling, Borgerservice, Hack Kampmanns Pl. 2, 8000 Aarhus C.</p>
+  <p>Det samtykke du har givet, kan til enhver tid trækkes tilbage, dog uden at ændre på lovligheden af den behandling, der allerede måtte være foretaget. Hvis du ønsker at tilbagetrække dit samtykke, kan du henvende dig mundtligt, på mail eller skriftligt til Udvikling og Demokrati, Borgerservice, Hack Kampmanns Pl. 2, 8000 Aarhus C.</p>
 
   <div class="small-12 medium-6 small-centered">
     <%= f.submit t("devise_views.users.registrations.new.submit"), class: "button expanded" %>
