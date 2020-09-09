@@ -252,8 +252,6 @@ da:
           other: Du har %{count} nye notifikationer
         notifications: Notifikationer
         no_notifications: "Du har ingen nye notifikationer"
-    admin:
-      watch_form_message: "Du har ændringer, der ikke er gemt. Ønsker du stadig at forlade denne side?"
   notifications:
     index:
       empty_notifications: Du har ingen nye notifikationer.
@@ -299,8 +297,9 @@ da:
       sign_in: Log ind med Twitter
       sign_up: Tilmeld dig via Twitter
       name: Twitter
-    info_sign_in: "Log ind med:"
-    info_sign_up: "Tilmeld dig med:"
+    info:
+      sign_in: "Sign in with:"
+      sign_up: "Sign up with:"
     or_fill: "Eller udfyld nedenstående formular:"
   proposals:
     create:
@@ -721,7 +720,6 @@ da:
           notice: "Du følger nu borgerforslaget! <br> Vi vil give dig besked, hvis/når der forekommer ændringer, så du hele tiden er opdateret."
         destroy:
           notice: "Du er stoppet med at følge borgerforslaget! <br> Du vil ikke længere modtage notifikationer relateret til forslaget."
-    hide: Skjul
     print:
       print_button: Udskriv information
     search: Søg
@@ -761,7 +759,7 @@ da:
     orbit:
       previous_slide: Forrige side
       next_slide: Næste side
-    documentation: Yderligere dokumentation
+    documentation: Dokumenter
     view_mode:
       title: Visning
       cards: Informationsbokse
@@ -876,7 +874,7 @@ da:
       most_active:
         debates: "Mest aktive debatindlæg"
         proposals: "Mest aktive forslag"
-        processes: "Åbne processer"
+        processes: "Aktive dialoger"
       see_all_debates: Se alle debatindlæg
       see_all_proposals: Se alle forslag
       see_all_processes: Se alle processer

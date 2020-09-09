@@ -149,6 +149,7 @@ da:
         success_notice: "Post slettet"
         unable_notice: "Du kan ikke slette en gruppe, der har modtaget projektidéer fra brugere"
       form:
+        max_ballot_lines_info: 'Maximum number of projects a user can vote on this heading during the "Voting projects" phase. Only for budgets using approval voting.'
         population_info: "Feltet over befolkningsantallet inden for et område anvendes til at holde statistikker over, hvor stor en andel af befolkningen, der deltog i afstemningen. Feltet er valgfrit."
         coordinates_info: "Hvis du angiver bredde- og længdegrader, så vil der på siden vises et kort centreret omkring de angivne koordinatorer."
         content_blocks_info: "Hvis indholdsblokke er tilladt, kan du oprette brugerdefineret indhold relateret til dette område. Det gøres via Indstillinger > Brugerdefinerede indholdsblokke. Indholdet vil være synligt på websiden for projektidéer til dette område."
@@ -267,11 +268,11 @@ da:
         table_status: Status
         table_actions: "Handlinger"
         delete: "Slet proces"
-        no_milestones: "Har ingen definerede processer"
+        no_milestones: "Har ingen definerede milepæle"
         image: "Billede"
         show_image: "Vis billede"
         documents: "Dokumenter"
-        milestone: Processer
+        milestone: Milepæle
         new_milestone: Opret ny proces
         milestone_tags: Tags (proces)
       form:
@@ -525,7 +526,7 @@ da:
           draft_versions: Udarbejdelse
           questions: Debat
           proposals: Forslag
-          milestones: Følger
+          milestones: Tidslinje
       homepage:
         edit:
           title: Konfigurer din hjemmeside
@@ -552,6 +553,7 @@ da:
           back: Tilbage
           submit_button: Gem ændringer
           warning: Du har redigeret teksten, husk at klikke på Gem for at gemme dine ændringer.
+          markdown_changes_message: "You've edited the text without saving it. Do you confirm to leave the page?"
         form:
           title: 'Rediger <span class="strong">%{draft_version_title}</span> fra processen <span class="strong">%{process_title}</span>'
           launch_text_editor: Start tekstredigering
@@ -616,7 +618,7 @@ da:
           remove_option: Fjern valgmulighed
       milestones:
         index:
-          title: Følger
+          title: Tidslinje
     managers:
       index:
         title: Managers
@@ -1217,15 +1219,15 @@ da:
           without_confirmed_hide: Under behandling
         title: Skjulte forslag
         no_hidden_proposals: Der er ingen skjulte forslag.
-    proposal_notifications:
+    hidden_proposal_notifications:
       index:
         filter: Filter
         filters:
-          all: Alle
-          with_confirmed_hide: Bekræftet
-          without_confirmed_hide: Under behandling
-        title: Skjulte notifikationer
-        no_hidden_proposals: Der er ingen skjulte notifikationer.
+          all: All
+          with_confirmed_hide: Confirmed
+          without_confirmed_hide: Pending
+        title: Hidden notifications
+        no_hidden_proposals: There are no hidden notifications.
     settings:
       flash:
         updated: Pris opdateret
@@ -1438,6 +1440,8 @@ da:
         help: "Når en bruger opretter et forslag vil følgende standard tags blive foreslået."
     users:
       columns:
+        id: ID
+        erase_reason: Fjern forklaring
         name: Navn
         email: E-mail
         document_number: Dokumentnummer
@@ -1446,6 +1450,10 @@ da:
       index:
         title: Bruger
         no_users: Der er ingen brugere.
+        filter: Filter
+        filters:
+          active: Aktive
+          erased: Slettede
       search:
         placeholder: Søg bruger via e-mail, navn eller dokumentnummer
         search: Søg

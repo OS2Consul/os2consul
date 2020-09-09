@@ -3,8 +3,23 @@ da:
     ballots:
       show:
         title: Din stemme
-        amount_spent: Opbrugt beløb
-        remaining: "Du har stadig <span>%{amount}</span> at investere for."
+        amount_available:
+          knapsack: "You still have <span>%{count}</span> to invest."
+          approval:
+            zero: "You can still cast <span>%{count}</span> votes."
+            one: "You can still cast <span>%{count}</span> vote."
+            other: "You can still cast <span>%{count}</span> votes."
+        amount_spent:
+          knapsack: "Amount spent <span>%{count}</span>"
+          approval:
+            zero: "Votes cast: <span>%{count}</span>"
+            one: "Votes cast: <span>%{count}</span>"
+            other: "Votes cast: <span>%{count}</span>"
+        amount_limit:
+          knapsack: "%{count}"
+          approval:
+            one: "You can vote <span>1</span> project"
+            other: "You can vote up to <span>%{count}</span> projects"
         no_balloted_group_yet: "Du har ikke stemt på denne gruppe endnu, så stem stem stem!"
         remove: Fjern din stemme
         voted:
@@ -21,6 +36,7 @@ da:
         not_enough_money: "Du har allerede fordelt det mulige budget.<br><small>Husk at du %{change_ballot} til enhver tid</small>"
         no_ballots_allowed: Støttefasen er slut
         different_heading_assigned: "Du har allerede stemt i et andet budget: %{heading_link}"
+        not_enough_available_votes: "You have reached the maximum number of votes allowed"
         change_ballot: ændre din stemme
         casted_offline: Du har allerede deltaget, da du var offline
     groups:
@@ -59,7 +75,7 @@ da:
       section_footer:
         title: Hvad er et deltagerbudget?
         description: Med et deltagerbudget får borgerne selv lov til at bestemme, hvad en given, uddelt sum penge skal bruges til. Det er borgerne, der kommer med idéerne, stemmer på idéerne og dermed uddeler penge.
-      milestones: Proces
+      milestones: Milepæle
     investments:
       form:
         tag_category_label: "Kategorier"
@@ -84,11 +100,17 @@ da:
           other: " som indeholder <strong>'%{search_term}'</strong>"
         sidebar:
           my_ballot: Min stemme
-          voted:
-            one: "<strong>Du har stemt på et forslag med en værdi af %{amount_spent}</strong>"
-            other: "<strong>Du har stemt på %{count} forslag med en værdi af %{amount_spent}</strong>"
-          voted_info: Du kan %{link} på ethvert tidspunkt inden denne fase afsluttes. Det er ikke nødvendigt at bruge alle de penge, der er til rådighed.
-          voted_info_link: ændre din stemme
+          voted_info:
+            knapsack:
+              one: "<strong>You voted one proposal with a cost of %{amount_spent}</strong>"
+              other: "<strong>You voted %{count} proposals with a cost of %{amount_spent}</strong>"
+            approval:
+              one: "<strong>You voted one proposal</strong>"
+              other: "<strong>You voted %{count} proposals</strong>"
+          change_vote_info:
+            knapsack: "You can %{link} at any time until the close of this phase. No need to spend all the money available."
+            approval: "You can %{link} at any time until the close of this phase."
+          change_vote_link: "change your vote"
           different_heading_assigned: "Du har aktive stemmer i et andet budget: %{heading_link}"
           change_ballot: "Hvis du ombestemmer dig, kan du fjerne din stemme in %{check_ballot} og starte forfra."
           check_ballot_link: "kontroller og bekræft min afstemning"
@@ -118,7 +140,7 @@ da:
         votes: Stemmer
         price: Pris
         comments_tab: Kommentarer
-        milestones_tab: Processer
+        milestones_tab: Følg projekterne
         author: Forfatter
         project_unfeasible: "Vi har desværre vurderet, at det <strong>ikke er muligt at gennemføre dit forslag</strong>, og den vil derfor ikke gå videre til afstemning."
         project_selected: "Forslaget <strong>er gået videre </strong> til afstemning."
@@ -148,6 +170,10 @@ da:
     progress_bar:
       assigned: "Du har tildelt: "
       available: "Penge der kan fordeles: "
+      votes:
+        zero: "You have selected <strong>0</strong> projects out of <strong>%{limit}</strong>"
+        one: "You have selected <strong>1</strong> project out of <strong>%{limit}</strong>"
+        other: "You have selected <strong>%{count}</strong> projects out of <strong>%{limit}</strong>"
     show:
       group: Gruppe
       phase: Aktuel fase
@@ -174,9 +200,9 @@ da:
       unfeasible_investment_proyects: Projekter, der ikke kan gennemføres 
       not_selected_investment_proyects: Projekter, der ikke er udvalgt til afstemning
     executions:
-      link: "Processer"
+      link: "Følg projekterne"
       page_title: "%{budget} - Milepæle"
-      heading: "Processer i deltagerbudgettet"
+      heading: "Milepæle i deltagerbudgettet"
       heading_selection_title: "Efter distrikt"
       no_winner_investments: "Ingen vinderforslag"
       filters:

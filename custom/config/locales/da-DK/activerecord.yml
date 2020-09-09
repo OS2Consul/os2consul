@@ -1,6 +1,6 @@
 da:
   attributes:
-    geozone_id: "Projektets omfang"
+    geozone_id: "Område"
     results_enabled: "Vis resultater"
     stats_enabled: "Vis statistik"
     advanced_stats_enabled: "Vis avanceret statistik"
@@ -16,8 +16,8 @@ da:
         one: "Projekt"
         other: "Projekter"
       milestone:
-        one: "proces"
-        other: "processer"
+        one: "Milepæl"
+        other: "Milepæle"
       milestone/status:
         one: "Status for milepæl"
         other: "Status for milepæle"
@@ -141,6 +141,9 @@ da:
         description_finished: "Synlig beskrivelse, når budgettet er færdiggjort"
         phase: "Fase"
         currency_symbol: "Valuta"
+        voting_style: "Final voting style"
+        voting_style_knapsack: "Knapsack"
+        voting_style_approval: "Approval"
       budget/translation:
         name: "Navn"
       budget/investment:
@@ -203,6 +206,7 @@ da:
         name: "Titelnavn"
         price: "Pris"
         population: "Population"
+        max_ballot_lines: "Votes allowed"
       budget/heading/translation:
         name: "Navn på område"
       budget/phase:
@@ -300,7 +304,7 @@ da:
         body: "Besked"
         title: "Titel"
       signature_sheet:
-        title: "Title"
+        title: "Titel"
         signable_type: "Underskriftstype"
         signable_id: "ID"
         document_numbers: "Dokumentnummer"
@@ -504,7 +508,8 @@ da:
           attributes:
             document_number:
               not_in_census: "Findes ikke i adresseregistret"
-              has_voted: "Brugeren har allerede stemt"
+            user_id:
+              has_voted: "User has already voted"
         legislation/process:
           attributes:
             end_date:
