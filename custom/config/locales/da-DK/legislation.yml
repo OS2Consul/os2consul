@@ -44,7 +44,7 @@ da:
         text_comments: Kommentar
     processes:
       header:
-        additional_info: Yderligere oplysninger
+        additional_info: Hvordan bliver dit bidrag brugt?
         description: Beskrivelse
         more_info: Mere information og kontekst
       proposals:
@@ -58,9 +58,9 @@ da:
       index:
         filter: Filtrere
         filters:
-          open: Åbne processer
-          past: Fortid
-        no_open_processes: Ingen åbne processer
+          open: Aktive dialoger
+          past: Tidligere dialoger
+        no_open_processes: Ingen aktive dialoger
         no_past_processes: Ingen tidligere processer
         section_header:
           icon_alt: Skærmikon for borgerdialog
@@ -83,7 +83,7 @@ da:
         draft_publication_date: Udkast til publikation
         allegations_dates: Kommentarer
         result_publication_date: Offentliggørelse af endeligt resultat
-        milestones_date: Følger
+        milestones_date: Tidslinje
         proposals_dates: Forslag
     questions:
       comments:
@@ -118,3 +118,32 @@ da:
         tags_label: "Kategorier"
       not_verified: "For at stemme på borgerforslag %{verify_account}."
       process_title: Borgerproces
+    summary:
+      title: "Summary"
+      votes:
+        zero: "%{count} votes"
+        one: "%{count} vote"
+        other: "%{count} votes"
+      debate_phase: "Debate phase"
+      proposals_phase: "Proposals phase"
+      allegations_phase: "Comments phase"
+      debates:
+        zero: "No debates"
+        one: "%{count} debate"
+        other: "%{count} debates"
+      proposals:
+        zero: "No proposals"
+        one: "%{count} proposal"
+        other: "%{count} proposals"
+      comments:
+        zero: "No comments"
+        one: "%{count} comment"
+        other: "%{count} comments"
+      download: "Download summary"
+      top_comments:
+        zero: "No comments"
+        one: "%{count} comment"
+        other: "Top comments"
+      most_voted_comments: "Most voted comments"
+      no_allegation: "There are no comments"
+      process_empty: "This process didn't have any participation phases"
