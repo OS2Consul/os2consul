@@ -9,6 +9,11 @@ class User < ApplicationRecord
 
   validates :consent_and_information, acceptance: { allow_nil: false }, on: :create
 
+  scope :by_username_email_or_document_number, ->(search_string) do
+    string = "%#{search_string}%"
+    where("fullname ILIKE ? OR username ILIKE ? OR email ILIKE ? OR document_number ILIKE ?", string, string, string, string)
+  end
+
   def name
     organization? ? organization.name : (fullname.present? ? fullname : username)
   end
