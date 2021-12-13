@@ -31,6 +31,16 @@
           </div>
 
           <div>
+            <label>
+              <input type="checkbox" checked disabled /><span class="checkbox">Samtykke givet den <%= l(current_user.created_at.to_date, format: "%d. %B %Y").downcase %>.</span>
+            </label>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <%= link_to "Læs mere om anvendelse af personoplysninger.", "/privacy", target: "_blank" %>
+          </div>
+
+          <div>
             <%= f.check_box :public_activity %>
           </div>
 
