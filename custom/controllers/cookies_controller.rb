@@ -3,6 +3,6 @@ class CookiesController < ApplicationController
 
   def consent
     cookies[:consent_given] = Time.current.to_s
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 end
