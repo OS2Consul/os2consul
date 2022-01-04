@@ -7,7 +7,7 @@ class Users::SessionsController < Devise::SessionsController
   alias create_without_nemlogin create
 
   def new
-    if Rails.application.secrets.saml_ip_ranges.any? { |ip_range| IPAddr.new(ip_range).include? request.remote_ip }
+    if Rails.application.secrets.saml_ip_ranges.split(',').map(&:strip).any? { |ip_range| IPAddr.new(ip_range).include? request.remote_ip }
       redirect_to user_saml_omniauth_authorize_path
     else
       # Use nemlogin for authentication, unless for administrators
