@@ -188,7 +188,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     doc.remove_namespaces!
     kommunekode = doc.at_xpath('//kommunekode').text.to_i
 
-    Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.map(&:to_i).include? kommunekode
+    Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.split(',').map(&:strip).map(&:to_i).include? kommunekode
   rescue Exception => e
     logger.error "Serviceplatformen error:"
     logger.error e.message
