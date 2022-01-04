@@ -65,6 +65,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if params.key?(:user)
       @user = User.new(params.require(:user).permit(:registration_state, :terms_of_service, :consent_and_information))
+      @residence_valid = true
 
       state = ActiveSupport::JSON.decode(encryptor.decrypt_and_verify(@user.registration_state)).symbolize_keys
 
@@ -90,27 +91,31 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       token, mnemo = params.require(%i[token mnemo])
-      pid, name = get_pid_and_name(token, mnemo)
+      pid, name, cpr = get_pid_and_name(token, mnemo)
 
       if pid.blank?
         flash[:error] = t('devise.failure.timeout')
         return redirect_to authenticated_return_url
       end
 
-      @user = User.find_for_authentication(username: pid)
+      @residence_valid = check_residence(cpr)
 
-      if @user.present?
-        @user.fullname = name
-        @user.save
+      if @residence_valid
+        @user = User.find_for_authentication(username: pid)
 
-        finalize_sign_in(@user)
-      else
-        redirect_to users_sign_up_success_path(
-          initial_prompt: true,
-          user: {
-            registration_state: encryptor.encrypt_and_sign({ pid: pid, name: name }.to_json)
-          }
-        )
+        if @user.present?
+          @user.fullname = name
+          @user.save
+
+          finalize_sign_in(@user)
+        else
+          redirect_to users_sign_up_success_path(
+            initial_prompt: true,
+            user: {
+              registration_state: encryptor.encrypt_and_sign({ pid: pid, name: name }.to_json)
+            }
+          )
+        end
       end
     end
   end
@@ -138,7 +143,56 @@ class Users::RegistrationsController < Devise::RegistrationsController
     return nil unless status
 
     [response.dig(:log_in_response, :log_in_result, :pid),
-     response.dig(:log_in_response, :log_in_result, :name)]
+     response.dig(:log_in_response, :log_in_result, :name),
+     response.dig(:log_in_response, :log_in_result, :cpr)]
+  end
+
+  def check_residence(cpr)
+    http = Net::HTTP.start(
+      Rails.application.secrets.serviceplatformen_host,
+      443,
+      use_ssl: true,
+      cert: OpenSSL::X509::Certificate.new(File.read(Rails.application.secrets.serviceplatformen_cert_path)),
+      key: OpenSSL::PKey::RSA.new(File.read(Rails.application.secrets.serviceplatformen_key_path)),
+    )
+
+    request = Net::HTTP::Post.new("/service/CPRBasicInformation/CPRBasicInformation/1")
+    request.body = <<-XML.strip_heredoc
+      <?xml version="1.0" encoding="UTF-8"?>
+      <env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CPRBasicInformationService/1/" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cpr="http://serviceplatformen.dk/xml/schemas/cpr/PNR/1/" xmlns:invctx="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/">
+        <env:Body>
+          <tns:callCPRBasicInformationRequest>
+            <cpr:PNR>#{cpr}</cpr:PNR>
+            <invctx:InvocationContext>
+              <ServiceAgreementUUID>#{Rails.application.secrets.serviceplatformen_service_agreement_uuid}</ServiceAgreementUUID>
+              <UserSystemUUID>#{Rails.application.secrets.serviceplatformen_user_system_uuid}</UserSystemUUID>
+              <UserUUID>#{Rails.application.secrets.serviceplatformen_user_uuid}</UserUUID>
+              <ServiceUUID>#{Rails.application.secrets.serviceplatformen_service_uuid}</ServiceUUID>
+              <AccountingInfo>#{Rails.application.secrets.serviceplatformen_accounting_info}</AccountingInfo>
+            </invctx:InvocationContext>
+          </tns:callCPRBasicInformationRequest>
+        </env:Body>
+      </env:Envelope>
+    XML
+    request.content_type = 'text/xml'
+
+    # logger.info "Requesting serviceplatformen:"
+    # logger.info request.body
+
+    response = http.request(request)
+
+    # logger.info "Serviceplatformen response:"
+    # logger.info response.body
+
+    doc = Nokogiri::XML(response.body)
+    doc.remove_namespaces!
+    kommunekode = doc.at_xpath('//kommunekode').text.to_i
+
+    Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.map(&:to_i).include? kommunekode
+  rescue Exception => e
+    logger.error "Serviceplatformen error:"
+    logger.error e.message
+    false
   end
 
   def nemlogin_destroy_session_url(callback)

@@ -17,6 +17,11 @@ def customize
     File.join(__dir__, 'consul', 'Capfile')
   )
 
+  FileUtils.cp(
+    File.join(__dir__, 'custom', 'Gemfile'),
+    File.join(__dir__, 'consul', 'Gemfile')
+  )
+
   clone_tree(
     File.join(__dir__, 'custom', 'config'),
     File.join(__dir__, 'consul', 'config')

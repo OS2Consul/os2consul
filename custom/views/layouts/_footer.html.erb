@@ -1,0 +1,140 @@
+<footer>
+  <div class="row">
+    <div class="small-12 large-4 column">
+      <h1 class="logo">
+        <%= link_to t("layouts.header.open_gov", open: t("layouts.header.open")), root_path %>
+      </h1>
+
+      <p class="info">
+        <%= sanitize(t("layouts.footer.description",
+          open_source: link_to(t("layouts.footer.open_source"), t("layouts.footer.open_source_url"), target: "blank", rel: "nofollow"),
+          consul:  link_to(t("layouts.footer.consul"), t("layouts.footer.consul_url"), target: "blank", rel: "nofollow"))) %>
+        <%= t("layouts.footer.contact_us") %>
+      </p>
+    </div>
+
+    <div class="footer-sections small-12 large-8 column">
+      <div class="small-12 medium-4 column">
+        <%= link_to t("layouts.footer.participation_title"), root_path, class: "title" %>
+        <p><%= t("layouts.footer.participation_text") %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subfooter row">
+    <div class="small-12 medium-8 column">
+      <%= t("layouts.footer.copyright", year: Time.current.year) %>&nbsp;|
+      <ul class="no-bullet inline-block">
+        <li class="inline-block"><%= link_to t("layouts.footer.privacy"), page_path("privacy") %>&nbsp;|</li>
+        <li class="inline-block"><%= link_to t("layouts.footer.conditions"), page_path("conditions") %>&nbsp;|</li>
+        <li class="inline-block"><%= link_to t("layouts.footer.accessibility"), page_path("accessibility") %></li>
+      </ul>
+    </div>
+
+    <div class="small-12 medium-4 column social">
+      <div class="text-right">
+        <ul>
+          <% if setting["twitter_handle"] %>
+            <li class="inline-block">
+              <%= link_to "https://twitter.com/#{setting["twitter_handle"]}", target: "_blank",
+                           title: t("shared.go_to_page") + t("social.twitter", org: setting["org_name"]) + t("shared.target_blank") do %>
+                              <span class="show-for-sr"><%= t("social.twitter", org: setting["org_name"]) %></span>
+                              <span class="icon-twitter" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if setting["facebook_handle"] %>
+            <li class="inline-block">
+              <%= link_to "https://www.facebook.com/#{setting["facebook_handle"]}/", target: "_blank",
+                          title: t("shared.go_to_page") + t("social.facebook", org: setting["org_name"]) + t("shared.target_blank") do %>
+                          <span class="show-for-sr"><%= t("social.facebook", org: setting["org_name"]) %></span>
+                          <span class="icon-facebook" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if setting["youtube_handle"] %>
+            <li class="inline-block">
+              <%= link_to "https://www.youtube.com/#{setting["youtube_handle"]}", target: "_blank",
+                          title: t("shared.go_to_page") + t("social.youtube", org: setting["org_name"]) + t("shared.target_blank") do %>
+                          <span class="show-for-sr"><%= t("social.youtube", org: setting["org_name"]) %></span>
+                          <span class="icon-youtube" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if setting["telegram_handle"] %>
+            <li class="inline-block">
+              <%= link_to "https://www.telegram.me/#{setting["telegram_handle"]}", target: "_blank",
+                          title: t("shared.go_to_page") + t("social.telegram", org: setting["org_name"]) + t("shared.target_blank") do %>
+                          <span class="show-for-sr"><%= t("social.telegram", org: setting["org_name"]) %></span>
+                          <span class="icon-telegram" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if setting["instagram_handle"] %>
+            <li class="inline-block">
+              <%= link_to "https://www.instagram.com/#{setting["instagram_handle"]}", target: "_blank",
+                          title: t("shared.go_to_page") + t("social.instagram", org: setting["org_name"]) + t("shared.target_blank") do %>
+                          <span class="show-for-sr"><%= t("social.instagram", org: setting["org_name"]) %></span>
+                          <span class="icon-instagram" aria-hidden="true"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <%= raw content_block("footer", I18n.locale) %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<% if !cookies[:consent_given] %>
+  <div style="background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 999999; box-sizing: border-box; padding: 20px;">
+    <div style="width: 600px; max-width: 100%; max-height: 100%; background: #fff; border-radius: 5px; padding: 40px; overflow-y: auto;">
+      <div id="cookie-consent-intro">
+        <h3>Du bestemmer over dine data</h3>
+        <p>Vi  bruger teknologier, herunder cookies, til at indsamle oplysninger om dig med henblik på at levere den nødvendige funktionalitet.</p>
+
+        <p>
+          Ved at trykke på 'Accepter nødvendige cookies' giver du samtykke til alle disse formål. Du kan til enhver tid trække dit samtykke tilbage ved at slette cookies i din browser.
+        </p>
+        <p>Du kan læse mere om vores brug af cookies og andre teknologier, samt om vores indsamling og behandling af personoplysninger ved at trykke på linket.</p>
+        <p><a href="#" onclick="document.getElementById('cookie-consent-policy').style.display = 'block'; document.getElementById('cookie-consent-intro').style.display = 'none';">Om cookies</a></p>
+
+        <p style="margin: 0;"><a href="<%= cookie_consent_path %>" class="button expanded large" style="display: block; margin: 0 auto; width: 60%;">Accepter nødvendige cookies</a></p>
+      </div>
+      <div id="cookie-consent-policy" style="display: none;">
+        <h3>Cookiepolitik</h3>
+        <p>Dit samtykke gælder for følgende domæner:</p>
+        <p>domæne.dk</p>
+        <p>Cookiepolitikken er sidst opdateret d. 13.12.2021</p>
+
+        <h4>Hvad er en cookie?</h4>
+        <p>En cookie er en lille datafil, som bliver gemt på din computer, tablet eller mobiltelefon. En cookie er ikke et program, der kan indeholde skadelige programmer eller virus.</p>
+
+        <h4>Hjemmesidens brug af cookies</h4>
+        <p>Cookies kan være nødvendige for at få hjemmesiden til at fungere. Cookies hjælper os desuden med at få overblik over dit besøg på hjemmesiden, så vi løbende kan optimere og målrette hjemmesiden til dine behov og interesser. Cookies husker f.eks., hvad du har lagt i en eventuel indkøbskurv, om du tidligere har besøgt siden, om du er logget ind og hvilket sprog og valuta, du gerne vil have vist på hjemmesiden. Vi bruger også cookies til at målrette vores annoncer over for dig på andre hjemmesider. Helt overordnet anvender vi cookies som del af vores service til at vise indhold, der er så relevant som muligt for dig.</p>
+
+        <p>Du kan se, hvilke services der sætter cookies, og til hvilke formål under de forskellige kategorier [Nødvendige, Funktionelle, Statistiske og Marketing].</p>
+
+        <h4>Hvor længe bliver cookies gemt?</h4>
+        <p>Det varierer, hvor længe en bestemt cookie bliver opbevaret på dine enheder og browsere. En cookies levetid beregnes ud fra dit seneste besøg på hjemmesiden. Når cookiens levetid udløber, bliver den automatisk slettet. Alle vores cookies' levetid fremgår i vores cookiepolitik.</p>
+
+        <h4>Sådan afviser eller sletter du cookies</h4>
+        <p>Du kan altid afvise alle -/tredjepartscookies fuldstændig ved at ændre indstillingerne i din browser på din computer, tablet eller telefon. Hvor du finder indstillingerne afhænger af, hvilken browser du anvender. Du skal dog være opmærksom på, at hvis du afviser alle -/tredjepartscookies, vil der være funktioner og services, du ikke kan anvende på hjemmesiden (fordi disse er afhængige af cookies).</p>
+        <p><a href="https://tools.google.com/dlpage/gaoptout">Du kan fravælge cookies fra Google Analytics her.</a></p>
+
+        <h4>Hvordan sletter man cookies?</h4>
+        <p>Cookies du tidligere har accepteret, kan sagtens slettes. Hvordan du sletter disse afhænger af den browser du bruger (Chrome, Firefox, Safari etc.) og på hvilken enhed (mobil, tablet, pc, mac).</p>
+        <p>Det er typisk under Indstillinger - Sikkerhed og Privatliv, men kan variere fra browser til browser.</p>
+
+        <h4>Ændring af dit samtykke</h4>
+        <p>Du ændrer dit samtykke ved at slette cookies fra browseren. Husk: Bruger du flere browsere, skal du slette cookies i dem alle.</p>
+
+        <h4>Har du spørgsmål?</h4>
+        <p>Har du kommentarer eller spørgsmål i forbindelse med vores information og/eller behandling af personlige oplysninger, er du velkommen til at kontakte os.</p>
+
+        <p><a href="#" onclick="document.getElementById('cookie-consent-policy').style.display = 'none'; document.getElementById('cookie-consent-intro').style.display = 'block';">Tilbage</a></p>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">document.body.style.overflow = 'hidden';</script>
+<% end %>
