@@ -13,11 +13,6 @@ def customize
   clean
 
   FileUtils.cp(
-    File.join(__dir__, 'custom', 'certfile_20_04_2020.pem'),
-    File.join(__dir__, 'consul', 'certfile_20_04_2020.pem')
-  )
-
-  FileUtils.cp(
     File.join(__dir__, 'custom', 'Capfile'),
     File.join(__dir__, 'consul', 'Capfile')
   )
