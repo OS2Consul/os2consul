@@ -7,12 +7,16 @@ class Users::SessionsController < Devise::SessionsController
   alias create_without_nemlogin create
 
   def new
-    # Use nemlogin for authentication, unless for administrators
-    if authenticated_return_url.start_with? '/admin'
-      session[:nemlogin_is_admin] = true
-      new_without_nemlogin
+    if Rails.application.secrets.saml_ip_ranges.any? { |ip_range| IPAddr.new(ip_range).include? request.remote_ip }
+      redirect_to user_saml_omniauth_authorize_path
     else
-      redirect_to nemlogin_url
+      # Use nemlogin for authentication, unless for administrators
+      if authenticated_return_url.start_with? '/admin'
+        session[:nemlogin_is_admin] = true
+        new_without_nemlogin
+      else
+        redirect_to nemlogin_url
+      end
     end
   end
 
