@@ -7,7 +7,7 @@ class User < ApplicationRecord
   attr_accessor :consent_and_information
   attr_accessor :registration_state
 
-  validates :consent_and_information, acceptance: { allow_nil: false }, on: :create
+  validates :consent_and_information, acceptance: { allow_nil: false }, on: :create, unless: Proc.new { |u| u.username == "admin" }
 
   scope :by_username_email_or_document_number, ->(search_string) do
     string = "%#{search_string}%"
