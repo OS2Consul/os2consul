@@ -19,6 +19,10 @@ as a git submodule and subsequently customized using the scripts in the reposito
 The production deployment target is a single `Debian Stretch` host, bootstrapped using the
 [CONSUL installer](https://github.com/consul/installer).
 
+Get access to solution after installation https://github.com/consul/installer#admin-user
+
+To change password use `/users/edit` path.
+
 # Workflow scripts
 
 ## local.rb
@@ -48,6 +52,7 @@ Runs a production deployment based on the current contents of the working direct
 ```
 ./deploy.rb
 ```
+See more information on [Deployment with capistrano](https://github.com/consul/installer#deploys-with-capistrano)
 
 ### Troubleshooting
 
