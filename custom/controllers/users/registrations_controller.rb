@@ -98,7 +98,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         return redirect_to authenticated_return_url
       end
 
-      @residence_valid = check_residence(cpr)
+      if Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.present?
+        @residence_valid = check_residence(cpr)
+      end
 
       if @residence_valid
         @user = User.find_for_authentication(username: pid)
