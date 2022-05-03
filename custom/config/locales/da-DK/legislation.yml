@@ -13,7 +13,7 @@ da:
         cancel: Annuller
         publish_comment: Udgive kommentar
       form:
-        phase_not_open: Denne fase er ikke åben
+        phase_not_open: Denne fase er ikke aktiv
       index:
         title: Kommentarer
         comments_about: Kommentarer om
@@ -119,31 +119,29 @@ da:
       not_verified: "For at stemme på borgerforslag %{verify_account}."
       process_title: Borgerproces
     summary:
-      title: "Summary"
+      title: "Opsummering"
       votes:
-        zero: "%{count} votes"
-        one: "%{count} vote"
-        other: "%{count} votes"
-      debate_phase: "Debate phase"
-      proposals_phase: "Proposals phase"
-      allegations_phase: "Comments phase"
+        zero: "%{count} stemmer"
+        one: "%{count} stemme"
+        other: "%{count} stemmer"
+      debate_phase: "Debatfase"
+      proposals_phase: "Forslagsfasen"
+      allegations_phase: "Kommentarfasen"
       debates:
-        zero: "No debates"
-        one: "%{count} debate"
-        other: "%{count} debates"
+        zero: "Ingen debatindlæg"
+        one: "%{count} debatindlæg"
+        other: "%{count} debatindlæg"
       proposals:
-        zero: "No proposals"
-        one: "%{count} proposal"
-        other: "%{count} proposals"
+        zero: "Ingen borgerforslag"
+        one: "%{count} borgerforslag"
+        other: "%{count} borgerforslag"
       comments:
-        zero: "No comments"
-        one: "%{count} comment"
-        other: "%{count} comments"
-      download: "Download summary"
+        zero: "Ingen kommentarer"
+        one: "%{count} kommentar"
+        other: "%{count} kommentarer"
+      download: "Hent opsummering"
       top_comments:
-        zero: "No comments"
-        one: "%{count} comment"
-        other: "Top comments"
-      most_voted_comments: "Most voted comments"
-      no_allegation: "There are no comments"
-      process_empty: "This process didn't have any participation phases"
+        zero: "Ingen kommentarer"
+      most_voted_comments: "Kommentarer med flest stemmer"
+      no_allegation: "Der er ingen kommentarer"
+      process_empty: "Denne proces havde ingen faser for deltagelse"
