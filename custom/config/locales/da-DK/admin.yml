@@ -280,6 +280,10 @@ da:
         phases: Faser
       budgets:
         continue: Videre
+      groups:
+        continue: Videre
+      groups:
+        continue: Videre
     milestones:
       index:
         table_id: "ID"

@@ -238,3 +238,4 @@ da:
         dates_range_invalid: "Startdatoen kan ikke være den samme eller senere end slutdatoen"
         prev_phase_dates_invalid: "Startdatoen skal være senere end startdatoen for den tidligere fase (%{phase_name})"
         next_phase_dates_invalid: "Slutdatoen skal være før slutdatoen for den næste fase (%{phase_name})"
+    see_more: Læs mere
