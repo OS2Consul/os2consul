@@ -67,6 +67,8 @@ da:
       actions:
         edit: "Rediger budget"
         preview: "Forhåndsvisning"
+        confirm:
+          destroy: Confirm deleting
       index:
         title: Deltagerbudgetter
         new_link: Opret nyt budget
@@ -276,6 +278,8 @@ da:
         groups: Grupper
         headings: Områder
         phases: Faser
+      budgets:
+        continue: Videre
     milestones:
       index:
         table_id: "ID"
@@ -1326,6 +1330,7 @@ da:
       delete: Slet
       color_help: Hexadecimalt format
       show_results_and_stats: "Vis resultater og statistik"
+      close_modal: Luk
     geozones:
       index:
         title: Geografisk område

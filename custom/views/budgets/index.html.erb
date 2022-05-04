@@ -1,0 +1,24 @@
+<%= render Shared::BannerComponent.new("budgets") %>
+
+<% provide :title do %><%= t("budgets.index.title") %><% end %>
+
+<% content_for :canonical do %>
+  <%= render "shared/canonical", href: budgets_url %>
+<% end %>
+
+<main class="budgets-index">
+  <header>
+    <h1><%= t("budgets.index.title") %></h1>
+  </header>
+
+  <% if @budgets.any? %>
+    <% @budgets.each do |budget| %>
+      <%= render Budgets::BudgetTeaserComponent.new(budget) %>
+    <% end %>
+  <% else %>
+    <div class="callout primary margin-top">
+      <%= t("budgets.index.empty_budgets") %>
+    </div>
+  <% end %>
+  <%= render Budgets::FooterComponent.new %>
+</main>
