@@ -6,6 +6,6 @@ class BudgetsController < ApplicationController
   def index
     @finished_budgets = @budgets.finished.order(created_at: :desc)
     @current_filter ||= "open"
-    @budgets = Budget.send(@current_filter).order(created_at: :desc).page(params[:page])
+    @budgets = Budget.send(@current_filter).published.order(created_at: :desc).page(params[:page])
   end
 end
