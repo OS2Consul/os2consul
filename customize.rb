@@ -38,6 +38,16 @@ def customize
   )
 
   clone_tree(
+    File.join(__dir__, 'custom', 'assets', 'stylesheets'),
+    File.join(__dir__, 'consul', 'app', 'assets', 'stylesheets', 'custom')
+  )
+
+  clone_tree(
+    File.join(__dir__, 'custom', 'components'),
+    File.join(__dir__, 'consul', 'app', 'components', 'custom')
+  )
+
+  clone_tree(
     File.join(__dir__, 'custom', 'db', 'migrate'),
     File.join(__dir__, 'consul', 'db', 'migrate')
   )

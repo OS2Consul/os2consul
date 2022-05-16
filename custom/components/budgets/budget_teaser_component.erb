@@ -1,0 +1,19 @@
+<div id="<%= dom_id(budget) %>" class="budget-item clear">
+    <div class="column row budget-text">
+        <div class="small-12 medium-8 column">
+            <h3><%= link_to budget.name, budget %></h3>
+        </div>
+        <div class="small-12 medium-4 column">
+            <%= link_to budget, class: "button hollow big expanded", title: budget.name do %>
+                <%= t("budgets.see_more") %>
+            <% end %>
+        </div>
+    </div>
+    <div class="column row small-collapse medium-uncollapse legislation-calendar">
+        <div class="small-6 medium-12 column">
+            <h4>Nuværende fase: <%= budget.current_phase.name %></h4>
+            <p><%= start_date(budget) %> - <%= end_date(budget) %></p>
+            <%= auto_link_already_sanitized_html(wysiwyg(budget.current_phase.description)) %>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,10 @@ da:
     results_enabled: "Vis resultater"
     stats_enabled: "Vis statistik"
     advanced_stats_enabled: "Vis avanceret statistik"
+    name: Navn
+    email: Email
+    description: Beskrivelse
+    related_sdg_list: Mål og delmål
   activerecord:
     models:
       activity:
@@ -72,6 +76,18 @@ da:
       proposal:
         one: "Borgerforslag"
         other: "Borgerforslag"
+      sdg/goal:
+        one: "mål"
+        other: "mål"
+      sdg/local_target:
+        one: "lokale delmål"
+        other: "lokale delmål"
+      sdg/manager:
+        one: "Verdensmåls konsulent"
+        other: "Verdensmåls konsulenter"
+      sdg/target:
+        one: "delmål"
+        other: "delmål"
       site_customization/page:
         one: Brugerdefineret side
         other: Brugerdefinerede sider
@@ -214,6 +230,7 @@ da:
         ends_at: "Slutdato"
         starts_at: "Startdato"
       budget/phase/translation:
+        name: "Navn"
         description: "Beskrivelse"
         summary: "Opsummering"
       comment:
@@ -272,6 +289,7 @@ da:
         responsible_name: "Den ansvarlige for gruppen"
       poll:
         name: "Navn"
+        title: "Navn"
         starts_at: "Startdato"
         ends_at: "Slutdato"
         geozone_restricted: "Begrænset af geozone"
@@ -308,6 +326,16 @@ da:
         signable_type: "Underskriftstype"
         signable_id: "ID"
         document_numbers: "Dokumentnummer"
+      sdg/goal:
+        title: "Titel"
+        description: "Beskrivelse"
+      sdg/local_target:
+        title: "Titel"
+      sdg/local_target/translation:
+        title: "Titel"
+        description: "Beskrivelse"
+      sdg/target:
+        title: "Titel"
       site_customization/page:
         content: Indhold
         created_at: Oprettet den

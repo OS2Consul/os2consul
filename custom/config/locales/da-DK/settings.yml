@@ -126,6 +126,7 @@ da:
       remote_census_description: "Allows to configure the connection to the remote census of each institution"
       valuation_comment_notification: "Notifikation"
       valuation_comment_notification_description: "Send en e-mail til alle brugere (med undtagelse af evaluatorerne) når en ny vurdering af foretaget"
+      sdg: Verdensmål
       graphql_api: "GraphQL API"
       dashboard:
         notification_emails: "Dashboard notification emails"
