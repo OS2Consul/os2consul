@@ -1,7 +1,7 @@
 <div class="row account">
   <div class="small-12 column">
     <div class="float-right text-right">
-      <% if current_user.administrator? %>
+      <% if current_user.administrator? && Rails.application.secrets.show_change_password_button == 1 %>
         <%= link_to t("account.show.change_credentials_link"), edit_user_registration_path, class: "button hollow" %>
         <br>
       <% end %>
