@@ -1,0 +1,9 @@
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  port: 5432
+  host: #<--database host
+  database: #<--database name
+  username: #<--database user name
+  password: #<--database user password
