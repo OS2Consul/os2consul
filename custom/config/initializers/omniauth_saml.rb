@@ -14,4 +14,6 @@ if Rails.application.secrets.saml_metadata_url.present?
       idp_cert_fingerprint: idp_metadata[:idp_cert_fingerprint],
       idp_sso_target_url: idp_metadata[:idp_sso_service_url]
   end
+
+  OneLogin::RubySaml::Attributes.single_value_compatibility = false
 end
