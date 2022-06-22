@@ -127,3 +127,14 @@ da:
           instructions_2: Når du har bekræftet din konto, kan du begynde at deltage.
           thank_you: Tak din tilmelding. Du skal nu <b>bekræfte din e-mail adresse</b>.
           title: Bekræft din e-mail adresse
+          condition_checkbox:
+            label:
+              text: Når du tilmelder dig, accepterer du
+              link_text: brugervilkår og betingelser
+            undertext: Borgerservice i Aarhus Kommune ønsker i forbindelse med at du som borger kan deltage i prioriteringen af offentlige budgetter at indhente dit samtykke til, at vi behandler personoplysninger om dig.
+          consent_checkbox:
+            label:
+              text: Ved afkrydsning af dette felt giver du samtykke til at Borgerservice i Aarhus Kommune, må behandle dine oplysninger som beskrevet. Dit brugernavn vil blive vist i forbindelse med dine indlæg.
+            undertext: Borgerservice benytter ikke altid dine oplysninger, men vil have mulighed for at kontakte dig pr. e-mail.
+            undertext_link_text: Læs mere om anvendelse af personoplysninger
+          footer_text: Det samtykke du har givet, kan til enhver tid trækkes tilbage, dog uden at ændre på lovligheden af den behandling, der allerede måtte være foretaget. Hvis du ønsker at tilbagetrække dit samtykke, kan du henvende dig mundtligt, på mail eller skriftligt til Demokrati og Udvikling, Borgerservice, Hack Kampmanns Pl. 2, 8000 Aarhus C.

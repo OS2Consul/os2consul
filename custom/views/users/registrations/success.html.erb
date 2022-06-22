@@ -9,21 +9,21 @@
     <%= f.label :terms_of_service do %>
       <%= strip_checkbox_errors do %>
         <%= f.check_box :terms_of_service, label: false %>
-        <span class="checkbox">Når du tilmelder dig, accepterer du <%= link_to "brugervilkår og betingelser", "/conditions", target: "_blank" %></span>
+        <span class="checkbox"><%= t("devise_views.users.registrations.success.condition_checkbox.label.text") %> <%= link_to t("devise_views.users.registrations.success.condition_checkbox.label.link_text"), "/conditions", target: "_blank" %></span>
       <% end %>
     <% end %>
 
-    <p>Borgerservice i Aarhus Kommune ønsker i forbindelse med at du som borger kan deltage i prioriteringen af offentlige budgetter at indhente dit samtykke til, at vi behandler personoplysninger om dig.</p>
+    <p><%= t("devise_views.users.registrations.success.condition_checkbox.undertext") %></p>
     <%= f.label :consent_and_information do %>
       <%= strip_checkbox_errors do %>
         <%= f.check_box :consent_and_information, label: false %>
-        <span class="checkbox" style="display:block;position:relative;margin-left:2em;margin-top:-2.2em;">Ved afkrydsning af dette felt giver du samtykke til at Borgerservice i Aarhus Kommune, må behandle dine oplysninger som beskrevet. Dit brugernavn vil blive vist i forbindelse med dine indlæg.</span>
+        <span class="checkbox" style="display:block;position:relative;margin-left:2em;margin-top:-2.2em;"><%= t("devise_views.users.registrations.success.consent_checkbox.label.text") %></span>
       <% end %>
     <% end %>
 
-    <p>Borgerservice benytter ikke altid dine oplysninger, men vil have mulighed for at kontakte dig pr. e-mail. <%= link_to "Læs mere om anvendelse af personoplysninger", "/privacy", target: "_blank" %></p>
+    <p><%= t("devise_views.users.registrations.success.consent_checkbox.undertext") %> <%= link_to t("devise_views.users.registrations.success.consent_checkbox.undertext_link_text"), "/privacy", target: "_blank" %></p>
 
-    <p>Det samtykke du har givet, kan til enhver tid trækkes tilbage, dog uden at ændre på lovligheden af den behandling, der allerede måtte være foretaget. Hvis du ønsker at tilbagetrække dit samtykke, kan du henvende dig mundtligt, på mail eller skriftligt til Demokrati og Udvikling, Borgerservice, Hack Kampmanns Pl. 2, 8000 Aarhus C.</p>
+    <p><%= t("devise_views.users.registrations.success.footer_text") %></p>
 
     <div class="small-12 medium-6 small-centered">
       <%= f.submit t("devise_views.users.registrations.new.submit"), class: "button expanded" %>
@@ -33,6 +33,7 @@
     </div>
   <% end %>
 <% else %>
+  <p><%= t("budgets.index.section_footer.description_test") %></p>
   <p>Du er ikke borger i kommunen og kan derfor ikke logge på.</p>
   <p><%= link_to "Tilbage til forsiden", root_path %></p>
 <% end %>

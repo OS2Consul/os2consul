@@ -33,6 +33,11 @@ def customize
   )
 
   clone_tree(
+    File.join(__dir__, 'custom', 'helpers'),
+    File.join(__dir__, 'consul', 'app', 'helpers')
+  )
+
+  clone_tree(
     File.join(__dir__, 'custom', 'controllers'),
     File.join(__dir__, 'consul', 'app', 'controllers', 'custom')
   )
