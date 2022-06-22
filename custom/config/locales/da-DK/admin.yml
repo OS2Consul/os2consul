@@ -711,6 +711,7 @@ da:
           mailers: "E-mails"
           management: "Management"
           welcome: "Velkommen"
+          devise_views_user: "Bruger Samtykke"
         buttons:
           save: "Gem"
           content_block:
