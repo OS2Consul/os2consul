@@ -9,6 +9,7 @@ da:
       organization_responsible_name_placeholder: Repræsentant for organisationen/gruppen
       personal: Personlige oplysninger
       phone_number_label: Telefonnummer
+      email_label: E-mail adresse
       public_interests_my_title_list: Tags jeg følger
       public_interests_user_title_list: Tags denne bruger følger
       save_changes_submit: Gem ændringer
