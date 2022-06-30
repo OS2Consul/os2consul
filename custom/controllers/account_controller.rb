@@ -9,6 +9,15 @@ class AccountController < ApplicationController
     return original_update
   end
 
+  def show
+    # Replace default value for email if user has email from nemlogin.
+    @account_email = if @account.email.match(/@nemlogin/)
+                       ''
+                     else
+                       @account.email
+                     end
+  end
+
   private
 
   def account_params
