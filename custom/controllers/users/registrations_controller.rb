@@ -204,6 +204,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def authenticated_return_url
-    session[stored_location_key_for(:user)] || root_path
+    if current_user.email.match(/@nemlogin/)
+      account_path
+    else
+      session[stored_location_key_for(:user)] || root_path
+    end
   end
 end
