@@ -3,7 +3,7 @@
   <head>
     <%= render "layouts/common_head", default_title: setting["org_name"] %>
     <% if Rails.application.secrets.custom_css %>
-      <link rel="stylesheet" media="screen" href="<%= Rails.application.secrets.custom_css %>" />
+      <link rel="stylesheet" media="screen" href="<%= Rails.application.secrets.custom_css %>?v<%= Time.now.strftime("%Y%m%d%H%M%S") %>" />
     <% end %>
     <%= render "layouts/tracking_data" %>
     <%= render "layouts/meta_tags" %>
