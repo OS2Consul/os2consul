@@ -2,6 +2,9 @@
 <html <%= "dir=rtl" if rtl? %> lang="<%= I18n.locale %>" data-current-user-id="<%= current_user&.id %>">
   <head>
     <%= render "layouts/common_head", default_title: setting["org_name"] %>
+    <% if Rails.application.secrets.custom_css %>
+      <link rel="stylesheet" media="screen" href="<%= Rails.application.secrets.custom_css %>" />
+    <% end %>
     <%= render "layouts/tracking_data" %>
     <%= render "layouts/meta_tags" %>
     <%= content_for :canonical %>
