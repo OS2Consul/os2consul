@@ -411,6 +411,7 @@ da:
     notice:
       retired: Forslaget er trukket tilbage
       published: Forslaget blev offentliggjort
+      published_and_hidden_for_review: Forslaget blev sendt til gennemgang og vil være vist efter godkendelse
     proposal:
       created: "Du oprettede et forslag!"
       share:
