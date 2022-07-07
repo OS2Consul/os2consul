@@ -106,6 +106,7 @@ da:
         one: " indeholder betegnelsen '%{search_term}'"
         other: " indeholder betegnelserne '%{search_term}'"
     sessions:
+      need_managed_user: For at udføre denne handling skal du vælge en bruger.
       signed_out: Du er nu logget af.
       signed_out_managed_user: Brugersessionen blev afsluttet.
     username_label: Brugernavn
