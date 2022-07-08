@@ -94,11 +94,17 @@
       </div>
     </div>
   </div>
-
   <div class="tabs-content" data-tabs-content="proposals_tabs">
-    <div class="tabs-panel is-active"  id="tab-notifications">
+    <% if Rails.application.secrets.proposal_hide_comments %>
+      <div class="tabs-panel is-active"  id="tab-notifications">
+        <%= render "proposals/notifications_active" %>
+      </div>
+    <% else %>
+     <div class="tabs-panel is-active" id="tab-comments">
+      <%= render "proposals/comments" %>
+      </div>
       <%= render "proposals/notifications" %>
-    </div>
+    <% end %>
     <%= render "milestones/milestones", milestoneable: @proposal %>
   </div>
 <% end %>

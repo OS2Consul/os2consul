@@ -5,7 +5,26 @@
     data-deep-link-smudge="true"
     data-deep-link-smudge-delay="500"
     data-tabs>
-  <li class="tabs-title is-active">
+
+  <% if Rails.application.secrets.proposal_hide_comments %>
+    <li class="tabs-title is-active">
+      <%= link_to "#tab-notifications" do %>
+        <h3>
+          <%= t("proposals.show.notifications_tab") %>
+          (<%= @notifications.count %>)
+        </h3>
+      <% end %>
+    </li>
+  <% else %>
+    <li class="tabs-title is-active">
+    <%= link_to "#tab-comments" do %>
+      <h3>
+        <%= t("proposals.show.comments_tab") %>
+        <span class="js-comments-count">(<%= @proposal.comments_count %>)</span>
+      </h3>
+    <% end %>
+    </li>
+    <li class="tabs-title">
     <%= link_to "#tab-notifications" do %>
       <h3>
         <%= t("proposals.show.notifications_tab") %>
@@ -13,6 +32,8 @@
       </h3>
     <% end %>
   </li>
+  <% end %>
+
   <li class="tabs-title">
     <%= link_to "#tab-milestones" do %>
       <h3>
