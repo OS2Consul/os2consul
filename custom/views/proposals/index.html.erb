@@ -127,9 +127,13 @@
         </p>
 
         <% if params[:retired].blank? %>
-          <%#= render "categories" %>
+          <% if Rails.application.secrets.proposal_list_hide_categories != true %>
+            <%= render "categories" %>
+          <% end %>
           <%= render "shared/tag_cloud", taggable: "Proposal" %>
-          <%#= render "geozones" %>
+          <% if Rails.application.secrets.proposal_list_hide_geozones != true  %>
+            <%= render "geozones" %>
+          <% end %>
         <% end %>
         <%= render "retired" %>
         <%= render "proposals_lists" %>
