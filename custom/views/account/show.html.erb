@@ -30,6 +30,9 @@
             <% end %>
 
             <%= f.email_field :email, placeholder: t("account.show.email_label"), :required => true, :value => @account_email %>
+            <% if @account.sign_in_count == 1 %>
+              <%= f.text_field :fullname %>
+            <% end %>
           </div>
 
           <div>
