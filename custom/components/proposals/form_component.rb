@@ -14,4 +14,8 @@ class Proposals::FormComponent < ApplicationComponent
     def categories
       Tag.category.order(:name)
     end
+
+    def locked?
+      !proposal.hidden? && proposal.published?
+    end
 end

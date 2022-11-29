@@ -10,20 +10,20 @@
       <div>
         <%= translations_form.text_field :title,
               maxlength: Proposal.title_max_length,
-              data: suggest_data(proposal), :disabled => proposal.published? %>
+              data: suggest_data(proposal), :disabled => locked? %>
       </div>
       <div class="js-suggest" data-locale="<%= translations_form.locale %>"></div>
 
       <div>
         <%= translations_form.text_area :summary,
                                         rows: 4, maxlength: 200,
-                                        hint: t("proposals.form.proposal_summary_note"), :disabled => proposal.published? %>
+                                        hint: t("proposals.form.proposal_summary_note"), :disabled => locked? %>
       </div>
 
       <div>
         <%= translations_form.text_area :description,
                                         maxlength: Proposal.description_max_length,
-                                        class: "html-area", :disabled => proposal.published? %>
+                                        class: "html-area", :disabled => locked? %>
       </div>
     <% end %>
   </fieldset>
