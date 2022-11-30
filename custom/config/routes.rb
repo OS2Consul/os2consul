@@ -46,4 +46,8 @@ Rails.application.routes.draw do
 
   # Static pages
   resources :pages, path: "/", only: [:show]
+
+  namespace :management do
+    get :export_proposals, to: "proposals#export"
+  end
 end
