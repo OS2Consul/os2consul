@@ -1,6 +1,12 @@
 <%= render Admin::TableActionsComponent.new(record, actions: []) do |actions| %>
   <% if record.draft? %>
     <%= actions.action(:edit, text: edit_text, path: edit_path) %>
+
+    <%= actions.action(:restore,
+                       text: restore_text,
+                       path: restore_path,
+                       method: :put,
+                       confirm: true) %>
   <% else %>
     <%= actions.action(:edit, text: edit_text, path: edit_path) %>
 
