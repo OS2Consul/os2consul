@@ -49,5 +49,6 @@ Rails.application.routes.draw do
 
   namespace :management do
     get :export_proposals, to: "proposals#export"
+    get 'export_proposal/:id', to: "proposals#export_one", as: :export_proposal
   end
 end
