@@ -29,7 +29,7 @@
           </div>
         </td>
         <td>
-          <%= proposal.author.username %>
+          <%= proposal.author.fullname || proposal.author.username %>
           <% if proposal.author.email.present?%>
             <br><%= mail_to proposal.author.email %>
           <% end %>
@@ -72,7 +72,7 @@
           </div>
         </td>
         <td>
-          <%= proposal.author.username %>
+          <%= proposal.author.fullname || proposal.author.username %>
           <% if proposal.author.email.present?%>
             <br><%= mail_to proposal.author.email %>
           <% end %>
