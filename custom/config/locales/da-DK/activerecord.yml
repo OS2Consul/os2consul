@@ -247,6 +247,7 @@ da:
         description: "Indledende debattekst"
       proposal:
         created_at: "Oprettet den"
+        published_at: "Publiceret den"
         author: "Forfatter"
         title: "Titel"
         question: "Spørgsmål"

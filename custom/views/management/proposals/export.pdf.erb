@@ -11,6 +11,7 @@
     <thead>
       <tr>
         <th><%= t("activerecord.attributes.proposal.created_at") %></th>
+        <th><%= t("activerecord.attributes.proposal.published_at") %></th>
         <th><%= t("activerecord.attributes.proposal.title") %></th>
         <th><%= t("activerecord.attributes.proposal.author") %></th>
         <th><%= t("activerecord.models.comment.other") %></th>
@@ -21,6 +22,7 @@
       <% @proposals.each do |proposal| %>
         <tr style="border-top: 1px solid #ccc" valign="top">
           <td><%= l proposal.created_at.to_date %></td>
+          <td><% if proposal.published_at.present? %><%= l proposal.published_at.to_date %><% end %></td>
           <td><strong><%= proposal.title %></strong><br><%= proposal.summary %></td>
           <td><%= proposal.author.name %><br><%= proposal.author.email %></td>
           <td>

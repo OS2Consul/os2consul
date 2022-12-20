@@ -29,6 +29,10 @@
         <td><%= l @proposal.created_at.to_date %></td>
       </tr>
       <tr>
+        <th><%= t("activerecord.attributes.proposal.published_at") %></th>
+        <td><%= l @proposal.published_at.to_date %></td>
+      </tr>
+      <tr>
         <th><%= t("activerecord.attributes.proposal.title") %></th>
         <td><%= @proposal.title %></td>
       </tr>
