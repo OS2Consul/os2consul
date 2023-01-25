@@ -57,6 +57,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             user.moderator = Moderator.new
             user.save!
           end
+          flash[:notice] = t('devise.sessions.signed_in')
+          sign_in_and_redirect user, event: :authentication
         end
       end
 
@@ -71,11 +73,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
             user.administrator = Administrator.new
             user.save!
           end
+          flash[:notice] = t('devise.sessions.signed_in')
+          sign_in_and_redirect user, event: :authentication
         end
       end
-
-      flash[:notice] = t('devise.sessions.signed_in')
-      sign_in_and_redirect user, event: :authentication
     end
   end
 end
