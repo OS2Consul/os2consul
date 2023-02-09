@@ -5,7 +5,7 @@
         <%= t("management.proposals.print.print_button") %>
       </a>
 
-      <%= link_to t("management.proposals.print.export_button"), management_export_proposals_path(format: :pdf), class: "button warning float-right" %>
+      <%= link_to t("management.proposals.print.export_button"), management_export_proposals_path(format: :pdf, order: @current_order), class: "button warning float-right" %>
 
       <%= image_tag "header_print_proposals.jpg", class: "for-print-only" %>
 
