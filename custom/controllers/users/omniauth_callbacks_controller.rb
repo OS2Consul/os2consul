@@ -51,7 +51,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         moderatorRegex = '/^' + Rails.application.secrets.sso_moderator_group + '/'
         administratorRegex = '/^' + Rails.application.secrets.sso_administrator_group + '/'
         if !groups.grep(moderatorRegex) || !groups.grep(administratorRegex)
-          redirect_to nemlogin_url
+          sign_out_and_redirect nemlogin_url
         end
       end
       # Checking up moderator rights. Add it if missing.
