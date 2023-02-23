@@ -46,14 +46,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     )
 
     if user.save
-      # If the user is not in
+      # If the user is not in the right groups
       if groups && Rails.application.secrets.sso_moderator_group && Rails.application.secrets.sso_administrator_group
         moderatorRegex = '/^' + Rails.application.secrets.sso_moderator_group + '/'
         administratorRegex = '/^' + Rails.application.secrets.sso_administrator_group + '/'
         if !groups.grep(moderatorRegex) || !groups.grep(administratorRegex)
-          sign_out_and_redirect nemlogin_url
+          redirect_to nemlogin_url
+          return
         end
       end
+
       # Checking up moderator rights. Add it if missing.
       if groups && Rails.application.secrets.sso_moderator_group
         moderatorRegex = '/^' + Rails.application.secrets.sso_moderator_group + '/'
