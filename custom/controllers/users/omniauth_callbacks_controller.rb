@@ -21,6 +21,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def saml
+    Rails.logger.debug "Initiating saml login"
     auth = request.env["omniauth.auth"]
 
     # Fetching user data from attributes.
@@ -46,16 +47,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     )
 
     if user.save
-      # If the user is not in the right groups
-      if groups && Rails.application.secrets.sso_moderator_group && Rails.application.secrets.sso_administrator_group
-        moderatorRegex = '/^' + Rails.application.secrets.sso_moderator_group + '/'
-        administratorRegex = '/^' + Rails.application.secrets.sso_administrator_group + '/'
-        if !groups.grep(moderatorRegex) || !groups.grep(administratorRegex)
-          redirect_to nemlogin_url
-          return
-        end
-      end
-
+      Rails.logger.debug "Checking if user has moderator rights"
       # Checking up moderator rights. Add it if missing.
       if groups && Rails.application.secrets.sso_moderator_group
         moderatorRegex = '/^' + Rails.application.secrets.sso_moderator_group + '/'
@@ -72,6 +64,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         end
       end
 
+      Rails.logger.debug "Checking if user has administrator rights"
       # Checking up administrator rights. Add it if missing.
       if groups && Rails.application.secrets.sso_administrator_group
         administratorRegex = '/^' + Rails.application.secrets.sso_administrator_group + '/'
@@ -87,6 +80,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           sign_in_and_redirect user, event: :authentication
         end
       end
+      Rails.logger.debug "User has neither moderator or administrator rights; redirecting to nemlogin"
+      redirect_to nemlogin_url
     end
+  end
+
+  def nemlogin_url
+    uri = URI(Rails.application.secrets.nemlogin_login_uri)
+    uri.query = {
+      mnemo: Rails.application.secrets.nemlogin_mnemo,
+      forward: users_sign_up_success_url
+    }.to_query
+    uri.to_s
   end
 end
