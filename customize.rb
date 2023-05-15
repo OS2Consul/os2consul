@@ -18,11 +18,6 @@ def customize
   )
 
   FileUtils.cp(
-    File.join(__dir__, 'custom', 'docker-compose.yml'),
-    File.join(__dir__, 'consul', 'docker-compose.yml')
-  )
-
-  FileUtils.cp(
     File.join(__dir__, 'custom', 'Gemfile_custom'),
     File.join(__dir__, 'consul', 'Gemfile_custom')
   )
