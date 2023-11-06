@@ -136,17 +136,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def get_pid_and_name(token, mnemo)
-    # Obtains the user PID and name from nemlogin through a SOAP API
-    client = Savon.client(wsdl: Rails.application.secrets.nemlogin_wsdl_uri)
-    response = client.call(:log_in, message: { token: token, mnemo: mnemo }).to_hash
+    # Obtains the user PID and name from MitID through a REST API
 
-    status = response.dig(:log_in_response, :log_in_result, :ok)
+    # Prepare a connection to the REST API
+    client = Net::HTTP.new(Rails.application.secrets.nemlogin_rest_uri, 443)
+    # Use SSL
+    client.use_ssl = true
 
-    return nil unless status
+    # Prepare a new POST request to the REST APIs login service
+    request = Net::HTTP::Post.new(Rails.application.secrets.nemlogin_login_service_uri)
+    # Prepare form data, one containing the token and one the mnemo key
+    request.set_form_data({ "token": token, "mnemo": mnemo })
+    # Send the POST request
+    response = client.request(request)
 
-    [response.dig(:log_in_response, :log_in_result, :pid),
-     response.dig(:log_in_response, :log_in_result, :name),
-     response.dig(:log_in_response, :log_in_result, :cpr)]
+    # Read the response body, and parse the returned JSON.
+    json_response = JSON.parse(response.body)
+
+    # Return nil if 'ok' is false
+    return nil unless json_response['ok']
+
+    # Return the required data
+    [json_response['pid'],
+     json_response['name'],
+     json_response['cpr']]
   end
 
   def check_residence(cpr)
