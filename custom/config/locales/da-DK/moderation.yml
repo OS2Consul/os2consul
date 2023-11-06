@@ -68,6 +68,8 @@ da:
         orders:
           created_at: Seneste
           flags: Mest markeret
+          hidden: Skjulte
+          random: Tilfældig
         title: Borgerforslag
     budget_investments:
       index:

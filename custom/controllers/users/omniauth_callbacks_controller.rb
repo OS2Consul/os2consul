@@ -26,12 +26,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     # Fetching user data from attributes.
     attributes = auth.extra.response_object.attributes
-    username = attributes["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"].first()
-    fullname = attributes["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"].first()
-    email = attributes["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"].first()
+    username = if [true, 1, 'true', '1'].include? Rails.application.secrets.saml_use_email_as_nameid
+                 attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'].first
+               else
+                 attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'].first
+               end
+    fullname = attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'].first
+    email = attributes['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'].first
 
     # Requires OneLogin::RubySaml::Attributes.single_value_compatibility = false in config/initializers/omniauth-saml.rb
-    groups = auth.extra.response_object.attributes["http://schemas.xmlsoap.org/claims/Group"]
+    groups = auth.extra.response_object.attributes['http://schemas.xmlsoap.org/claims/Group']
 
     user = User.find_by(email: email) || User.new(
       username: username,
@@ -63,6 +67,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
           sign_in_and_redirect user, event: :authentication
         end
       end
+    end
 
       Rails.logger.debug "Checking if user has administrator rights"
       # Checking up administrator rights. Add it if missing.
@@ -83,6 +88,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       Rails.logger.debug "User has neither moderator or administrator rights; redirecting to nemlogin"
       redirect_to nemlogin_url
     end
+
+    flash[:notice] = t('devise.sessions.signed_in')
+    sign_in_and_redirect user, event: :authentication
   end
 
   def nemlogin_url

@@ -202,6 +202,7 @@ da:
       ie_title: Hjemmesiden fungerer ikke optimal sammen med din valgte browser
     dashboard:
       proposal_header:
+        hidden: I moderation
         published: Offentliggjort
         draft: Udkast
         retired: Tilbagekaldt
@@ -359,6 +360,8 @@ da:
         relevance: relevans
         archival_date: arkiveret
         recommendations: anbefalinger
+        random: tilfældig
+        hidden: skjulte
       recommendations:
         without_results: Der er ingen forslag, der relaterer sig til dit interesseområde
         without_interests: Følg forslaget så vi kan give dig anbefalinger
@@ -853,6 +856,7 @@ da:
       delete_alert: "Er du sikker på, du ønsker at slette din projektidé? Denne handling kan ikke fortrydes"
     proposals:
       retired: "Tilbagetrukket borgerforslag"
+      hidden: I moderation
       draft: Udkast
       published: Offentliggjort
       see: "Se forslag"

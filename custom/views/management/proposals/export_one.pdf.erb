@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <%= wicked_pdf_stylesheet_link_tag "pdf_export" -%>
+  <%= wicked_pdf_stylesheet_link_tag "pdf_fonts" -%>
+  <style type="text/css">
+  th {
+    text-align: left;
+    white-space: nowrap;
+    width: 10%;
+  }
+
+  td {
+    padding-left: 2rem !important;
+  }
+
+  tr {
+    border-top: 1px solid #ccc
+  }
+  </style>
+</head>
+<body>
+  <table>
+    <tbody>
+      <tr>
+        <th><%= t("activerecord.attributes.proposal.created_at") %></th>
+        <td><%= l @proposal.created_at.to_date %></td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.attributes.proposal.published_at") %></th>
+        <td><%= l @proposal.published_at.to_date %></td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.attributes.proposal.title") %></th>
+        <td><%= @proposal.title %></td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.models.images.one") %></th>
+        <td>
+          <%= wicked_pdf_image_tag @proposal.image.attachment.url(:medium) if @proposal.image.present? %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= t("proposals.show.code") %></th>
+        <td><%= @proposal.code %></td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.attributes.proposal/translation.summary") %></th>
+        <td><%= @proposal.summary %></td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.attributes.proposal.author") %></th>
+        <td><%= @proposal.author.name %> &lt;<%= mail_to @proposal.author.email %>&gt;</td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.attributes.proposal.description") %></th>
+        <td><%= auto_link_already_sanitized_html wysiwyg(@proposal.description) %></td>
+      </tr>
+      <!--
+      <tr>
+        <th><%= t("proposals.form.map_location") %></th>
+        <td>
+          <% if feature?(:map) && map_location_available?(@proposal.map_location) %>
+            <div class="margin">
+              <%= render_map(@proposal.map_location, "proposal", false, nil) %>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+      -->
+      <% if @proposal.documents.any? %>
+        <tr>
+          <th><%= t("documents.additional") %></th>
+          <td>
+            <% if feature?(:allow_attached_documents) %>
+              <%= render partial: "documents/documents", formats: [:html],
+                locals: {documents: @proposal.documents,
+                         max_documents_allowed: Proposal.max_documents_allowed} %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <th><%= t("shared.tags_cloud.categories") %></th>
+        <td>
+          <ul class="tags">
+            <% @proposal.sdg_goals.each do |tag_record| %>
+              <li><a><%= tag_record.code %></a></li>
+            <% end %>
+            <% @proposal.sdg_targets.each do |tag_record| %>
+              <li><a><%= tag_record.code %></a></li>
+            <% end %>
+            <% @proposal.tags.each do |tag_record| %>
+              <li><a><%= tag_record %></a></li>
+            <% end %>
+          </ul>
+          
+          <ul id="geozone" class="no-bullet geozone">
+            <li class="inline-block">
+              <%= link_to geozone_name(@proposal), proposals_path(search: geozone_name(@proposal)) %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.models.comment.other") %></th>
+        <td>
+          <% @proposal.comments.each_with_index do |comment, i| %>
+            <% if i > 0%><hr><% end %>
+            <%= comment.user.name %> &lt;<%= mail_to comment.user.email %>&gt; &nbsp;&bull;&nbsp; <%= l comment.created_at.to_datetime, format: :datetime %><br>
+            <%= simple_format sanitize_and_auto_link(comment.body), {}, sanitize: false %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= t("activerecord.models.vote.other") %></th>
+        <td><%= t("proposals.proposal.supports", count: @proposal.total_votes) %></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

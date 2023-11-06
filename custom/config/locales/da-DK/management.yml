@@ -82,6 +82,7 @@ da:
       create_proposal: Opret borgerforslag
       print:
         print_button: Udskriv
+        export_button: Eksporter til PDF
       index:
         title: Støt op om forslag
     budgets:

@@ -44,7 +44,7 @@ def customize
 
   clone_tree(
     File.join(__dir__, 'custom', 'assets', 'stylesheets'),
-    File.join(__dir__, 'consul', 'app', 'assets', 'stylesheets', 'custom')
+    File.join(__dir__, 'consul', 'app', 'assets', 'stylesheets')
   )
 
   clone_tree(
@@ -65,6 +65,11 @@ def customize
   clone_tree(
     File.join(__dir__, 'custom', 'views'),
     File.join(__dir__, 'consul', 'app', 'views', 'custom')
+  )
+
+  clone_tree(
+    File.join(__dir__, 'custom', 'lib', 'tasks'),
+    File.join(__dir__, 'consul', 'lib', 'tasks')
   )
 end
 

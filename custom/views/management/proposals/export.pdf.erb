@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <%= wicked_pdf_stylesheet_link_tag "pdf_export" -%>
+  <%= wicked_pdf_stylesheet_link_tag "pdf_fonts" -%>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th><%= t("activerecord.attributes.proposal.created_at") %></th>
+        <th><%= t("activerecord.attributes.proposal.published_at") %></th>
+        <th><%= t("activerecord.attributes.proposal.title") %></th>
+        <th><%= t("activerecord.attributes.proposal.author") %></th>
+        <th><%= t("activerecord.models.comment.other") %></th>
+        <th><%= t("activerecord.models.vote.other") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @proposals.each do |proposal| %>
+        <tr style="border-top: 1px solid #ccc" valign="top">
+          <td><%= l proposal.created_at.to_date %></td>
+          <td><% if proposal.published_at.present? %><%= l proposal.published_at.to_date %><% end %></td>
+          <td><strong><%= proposal.title %></strong><br><%= proposal.summary %></td>
+          <td><%= proposal.author.name %><br><%= proposal.author.email %></td>
+          <td>
+            <% proposal.comments.each_with_index do |comment, i| %>
+              <% if i > 0%><hr><% end %>
+              <%= comment.user.name %> &lt;<%= mail_to comment.user.email %>&gt; &nbsp;&bull;&nbsp; <%= l comment.created_at.to_datetime, format: :datetime %><br>
+              <%= simple_format sanitize_and_auto_link(comment.body), {}, sanitize: false %>
+            <% end %>
+          </td>
+          <td><%= t("proposals.proposal.supports", count: proposal.total_votes) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</body>
+</html>
