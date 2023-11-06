@@ -101,4 +101,3 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     }.to_query
     uri.to_s
   end
-end
