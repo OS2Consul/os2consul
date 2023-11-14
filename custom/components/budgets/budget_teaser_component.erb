@@ -13,7 +13,6 @@
         <div class="small-6 medium-12 column">
             <h4>Nuværende fase: <%= budget.current_phase.name %></h4>
             <p><%= start_date(budget) %> - <%= end_date(budget) %></p>
-            <%= auto_link_already_sanitized_html(wysiwyg(budget.current_phase.description)) %>
         </div>
     </div>
 </div>
