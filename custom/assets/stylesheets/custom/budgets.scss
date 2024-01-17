@@ -26,3 +26,12 @@
     margin-bottom: 1rem;
   }
 }
+
+.budget-phases {
+  .budget-phase {
+    display: block;
+    > * {
+      width: 100%;
+    }
+  }
+}
