@@ -29,9 +29,14 @@
 
 .budget-phases {
   .budget-phase {
-    display: block;
+    flex-direction: column;
     > * {
       width: 100%;
+
+      img {
+        width: 100%;
+	margin-bottom: 2rem;
+      }
     }
   }
 }
