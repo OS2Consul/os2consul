@@ -22,4 +22,12 @@ class ProposalsController < ApplicationController
   def load_proposal
     @proposal = Proposal.with_hidden.find(params[:id])
   end
+
+  def discard_archived
+    unless @current_order == "archival_date" || params[:selected].present?
+      @resources = @resources.not_archived
+    end
+
+    @resources = @resources.where("ignored_flag_at IS NULL OR ignored_flag_at > ?", Setting["months_to_archive_proposals"].to_i.months.ago)
+  end
 end
