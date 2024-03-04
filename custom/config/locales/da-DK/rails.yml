@@ -142,17 +142,17 @@ da:
   number:
     currency:
       format:
-        delimiter: ","
-        format: "%u%n"
+        delimiter: "."
+        format: "%u %n"
         precision: 2
-        separator: "."
+        separator: ","
         significant: false
         strip_insignificant_zeros: false
-        unit: "$"
+        unit: "DKK"
     format:
-      delimiter: ","
+      delimiter: "."
       precision: 3
-      separator: "."
+      separator: ","
       significant: false
       strip_insignificant_zeros: false
     human:
