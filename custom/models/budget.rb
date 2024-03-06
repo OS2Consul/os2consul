@@ -3,7 +3,7 @@
 require_dependency Rails.root.join('app', 'models', 'budget').to_s
 
 class Budget < ApplicationRecord
-  CUSTOM_CURRENCY_SYMBOLS = %w[DKK € $ £ ¥].freeze
+  CUSTOM_CURRENCY_SYMBOLS = %w[kr. € $ £ ¥].freeze
 
   def map_latitude
     return Setting["map.latitude"] if self[:map_latitude].nil?

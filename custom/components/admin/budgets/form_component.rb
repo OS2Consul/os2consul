@@ -18,7 +18,7 @@ class Admin::Budgets::FormComponent < ApplicationComponent
   end
 
   def currency_symbol_select_options
-    Budget::CURRENCY_SYMBOLS.map { |cs| [cs, cs] }
+    Budget::CUSTOM_CURRENCY_SYMBOLS.map { |cs| [cs, cs] }
   end
 
   def phases_select_options
