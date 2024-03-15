@@ -93,13 +93,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
       token, mnemo = params.require(%i[token mnemo])
       pid, name, cpr = get_pid_and_name(token, mnemo)
 
+      if enable_serviceplatformen?
+        doc = request_serviceplatformen(cpr)
+
+        if doc.nil?
+          @residence_valid = false
+        else
+          name = serviceplatformen_name(doc)
+
+          if Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.present?
+            @residence_valid = check_residence(doc)
+          end
+        end
+      end
+
       if pid.blank?
         flash[:error] = t('devise.failure.timeout')
         return redirect_to authenticated_return_url
-      end
-
-      if Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.present?
-        @residence_valid = check_residence(cpr)
       end
 
       if @residence_valid
@@ -162,7 +172,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
      json_response['cpr']]
   end
 
-  def check_residence(cpr)
+  def enable_serviceplatformen?
+    return false if Rails.application.secrets.serviceplatformen_host.blank?
+    return false if Rails.application.secrets.serviceplatformen_cert_path.blank?
+    return false if Rails.application.secrets.serviceplatformen_key_path.blank?
+    return false if Rails.application.secrets.serviceplatformen_service_agreement_uuid.blank?
+    return false if Rails.application.secrets.serviceplatformen_user_system_uuid.blank?
+    return false if Rails.application.secrets.serviceplatformen_user_uuid.blank?
+    return false if Rails.application.secrets.serviceplatformen_service_uuid.blank?
+    true
+  end
+
+  def request_serviceplatformen(cpr)
     http = Net::HTTP.start(
       Rails.application.secrets.serviceplatformen_host,
       443,
@@ -201,13 +222,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     doc = Nokogiri::XML(response.body)
     doc.remove_namespaces!
-    kommunekode = doc.at_xpath('//kommunekode').text.to_i
-
-    Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.split(',').map(&:strip).map(&:to_i).include? kommunekode
+    doc
   rescue Exception => e
     logger.error "Serviceplatformen error:"
     logger.error e.message
-    false
+    nil
+  end
+
+  def check_residence(doc)
+    kommunekode = doc.at_xpath('//kommunekode').text.to_i
+
+    Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.split(',').map(&:strip).map(&:to_i).include? kommunekode
+  end
+
+  def serviceplatformen_name(doc)
+    doc.at_xpath('//adresseringsnavn').text
   end
 
   def nemlogin_destroy_session_url(callback)
