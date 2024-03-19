@@ -220,7 +220,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # logger.info "Serviceplatformen response:"
     # logger.info response.body
 
-    doc = Nokogiri::XML(response.body)
+    doc = Nokogiri::XML(response.body, nil, "iso-8859-1")
     doc.remove_namespaces!
     doc
   rescue Exception => e
