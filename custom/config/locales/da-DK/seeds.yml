@@ -32,7 +32,7 @@ da:
       environment: Miljø
     budgets:
       budget: Deltagerbudget
-      currency: '€'
+      currency: 'kr'
       groups:
         all_city: Hele byen
         districts: Distrikter

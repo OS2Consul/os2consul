@@ -785,6 +785,8 @@ da:
         zero: "0 sprog i brug"
         one: "1 sprog i brug"
         other: "%{count} sprog i brug"
+    optional: "Frivillige felter"
+    required: "Skal udfyldes"
   social:
     facebook: "%{org} Facebook"
     twitter: "%{org} Twitter"

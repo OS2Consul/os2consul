@@ -43,7 +43,7 @@ da:
         edit_dossier: Rediger rapport
         price: Pris
         price_first_year: Omkostninger i løbet af det første år
-        currency: "€"
+        currency: "kr"
         feasibility: Kan gennemføres
         feasible: Kan gennemføres
         unfeasible: Kan ikke gennemføres
