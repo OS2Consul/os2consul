@@ -32,13 +32,13 @@ def deploy
   customize
   augment_deploy_secrets(read_config)
 
-  system 'gem install --conservative whenever -v "~> 0.10.0"'
-  system 'gem install --conservative capistrano -v 3.10.1'
+  system 'gem install --conservative whenever -v "~> 1.0.0"'
+  system 'gem install --conservative capistrano -v 3.16.0'
   system 'gem install --conservative capistrano-archive -v 1.0.0'
-  system 'gem install --conservative capistrano-bundler -v "~> 1.2"'
-  system 'gem install --conservative capistrano-rails -v "~> 1.4.0"'
-  system 'gem install --conservative capistrano3-delayed-job -v "~> 1.7.3"'
-  system 'gem install --conservative capistrano3-puma -v "~> 4.0.0"'
+  system 'gem install --conservative capistrano-bundler -v "~> 2.0"'
+  system 'gem install --conservative capistrano-rails -v "~> 1.6.1"'
+  system 'gem install --conservative capistrano3-delayed-job -v "~> 1.7.6"'
+  system 'gem install --conservative capistrano3-puma -v "~> 5.0.4"'
   system 'gem install --conservative rvm1-capistrano3 -v "~> 1.4.0"'
 
   FileUtils.rm_f(File.join(__dir__, 'consul', 'dist.tar.bz2'))
