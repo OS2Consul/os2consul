@@ -18,6 +18,11 @@ def customize
   )
 
   FileUtils.cp(
+    File.join(__dir__, 'custom', 'Gemfile'),
+    File.join(__dir__, 'consul', 'Gemfile')
+  )
+
+  FileUtils.cp(
     File.join(__dir__, 'custom', 'Gemfile_custom'),
     File.join(__dir__, 'consul', 'Gemfile_custom')
   )
@@ -40,6 +45,11 @@ def customize
   clone_tree(
     File.join(__dir__, 'custom', 'controllers'),
     File.join(__dir__, 'consul', 'app', 'controllers', 'custom')
+  )
+
+  clone_tree(
+    File.join(__dir__, 'custom', 'assets', 'javascripts'),
+    File.join(__dir__, 'consul', 'app', 'assets', 'javascripts')
   )
 
   clone_tree(

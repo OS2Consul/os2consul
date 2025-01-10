@@ -50,15 +50,15 @@ def local
 
   Dir.chdir(File.join(__dir__, 'consul')) do
     unless config['db_migrated']
-      system 'docker-compose run --rm app /usr/local/bin/rake db:create'
-      system 'docker-compose run --rm app /usr/local/bin/rake db:migrate'
-      system 'docker-compose run --rm app /usr/local/bin/rake db:dev_seed'
+      system 'docker compose run --rm app /usr/local/bin/rake db:create'
+      system 'docker compose run --rm app /usr/local/bin/rake db:migrate'
+      system 'docker compose run --rm app /usr/local/bin/rake db:dev_seed'
 
       config['db_migrated'] = true
       write_config(config)
     end
 
-    exec 'docker-compose up'
+    exec 'docker compose up'
   end
 end
 
