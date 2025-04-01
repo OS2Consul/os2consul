@@ -195,9 +195,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     request = Net::HTTP::Post.new("/service/CPRBasicInformation/CPRBasicInformation/1")
     request.body = <<-XML.strip_heredoc
       <?xml version="1.0" encoding="UTF-8"?>
-      <env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CPRBasicInformationService/1/" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cpr="http://serviceplatformen.dk/xml/schemas/cpr/PNR/1/" xmlns:invctx="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/">
+      <env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CPR/PersonBaseDataExtended/5/" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cpr="http://serviceplatformen.dk/xml/schemas/cpr/PNR/1/" xmlns:invctx="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/">
         <env:Body>
-          <tns:callCPRBasicInformationRequest>
+          <tns:PersonLookupRequest>
             <cpr:PNR>#{cpr}</cpr:PNR>
             <invctx:InvocationContext>
               <ServiceAgreementUUID>#{Rails.application.secrets.serviceplatformen_service_agreement_uuid}</ServiceAgreementUUID>
@@ -206,7 +206,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
               <ServiceUUID>#{Rails.application.secrets.serviceplatformen_service_uuid}</ServiceUUID>
               <AccountingInfo>#{Rails.application.secrets.serviceplatformen_accounting_info}</AccountingInfo>
             </invctx:InvocationContext>
-          </tns:callCPRBasicInformationRequest>
+          </tns:PersonLookupRequest>
         </env:Body>
       </env:Envelope>
     XML
@@ -230,13 +230,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def check_residence(doc)
-    kommunekode = doc.at_xpath('//kommunekode').text.to_i
+    kommunekode = doc.at_xpath('//adresse/aktuelAdresse/kommunekode').text.to_i
 
     Rails.application.secrets.serviceplatformen_kommunekode_valid_for_residence.split(',').map(&:strip).map(&:to_i).include? kommunekode
   end
 
   def serviceplatformen_name(doc)
-    doc.at_xpath('//adresseringsnavn').text
+    doc.at_xpath('//persondata/navn/personadresseringsnavn').text
   end
 
   def nemlogin_destroy_session_url(callback)
