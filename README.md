@@ -62,6 +62,7 @@ See more information on [Deployment with capistrano](https://github.com/consul/i
   Capfile locked at ~> 3.10.1, but 3.16.0 is loaded
   ```
   Remove capistrano v3.16.0 with command `gem uninstall capistrano -v 3.16.0`
+  OR change the version in vim config/deploy.rb - at the top
 
 #### 2. Build gem native extensions failed
   If you get following error:
