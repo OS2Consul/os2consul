@@ -192,7 +192,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       key: OpenSSL::PKey::RSA.new(File.read(Rails.application.secrets.serviceplatformen_key_path)),
     )
 
-    request = Net::HTTP::Post.new("/service/CPRBasicInformation/CPRBasicInformation/1")
+    request = Net::HTTP::Post.new("/service/CPR/PersonBaseDataExtended/5")
     request.body = <<-XML.strip_heredoc
       <?xml version="1.0" encoding="UTF-8"?>
       <env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://serviceplatformen.dk/xml/wsdl/soap11/CPR/PersonBaseDataExtended/5/" xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cpr="http://serviceplatformen.dk/xml/schemas/cpr/PNR/1/" xmlns:invctx="http://serviceplatformen.dk/xml/schemas/InvocationContext/1/">
